@@ -1,47 +1,125 @@
 const { json } = require('body-parser');
 const connection = require('../config/connection');
 
-function listarAutos(req, res) {
+function listarEdificos(req, res) {
     if(connection){
-        let sql = 'select * from Autos';
-        connection.query(sql, (err, auto) => {
+        let sql = 'select * from edificios';
+        connection.query(sql, (err, edificio) => {
             if(err){
                 res.send(err)
             } else {
-                console.log(auto);
-                res.json(auto);
+                console.log(edificios);
+                res.json(edificios);
+            }
+        })
+    }
+}
+function listarAulas(req, res) {
+    if(connection){
+        let sql = 'select * from aula';
+        connection.query(sql, (err, aula) => {
+            if(err){
+                res.send(err)
+            } else {
+                console.log(aula);
+                res.json(aula);
+            }
+        })
+    }
+}
+function listarSoftwares(req, res) {
+    if(connection){
+        let sql = 'select * from software';
+        connection.query(sql, (err, software) => {
+            if(err){
+                res.send(err)
+            } else {
+                console.log(software);
+                res.json(software);
+            }
+        })
+    }
+}
+function listarLicenciasSoftwares(req, res) {
+    if(connection){
+        let sql = 'select * from licencia';
+        connection.query(sql, (err, licencia) => {
+            if(err){
+                res.send(err)
+            } else {
+                console.log(licencia);
+                res.json(licencia);
+            }
+        })
+    }
+}
+function listarCategoriasInventario(req, res) {
+    if(connection){
+        let sql = 'select * from categoriaInventario';
+        connection.query(sql, (err, categoriaInventario) => {
+            if(err){
+                res.send(err)
+            } else {
+                console.log(categoriaInventario);
+                res.json(categoriaInventario);
+            }
+        })
+    }
+}
+function listarInventario(req, res) {
+    if(connection){
+        let sql = 'select * from inventario';
+        connection.query(sql, (err, inventario) => {
+            if(err){
+                res.send(err)
+            } else {
+                console.log(inventario);
+                res.json(inventario);
+            }
+        })
+    }
+}
+function listarHardware(req, res) {
+    if(connection){
+        let sql = 'select * from computerHard';
+        connection.query(sql, (err, computerHard) => {
+            if(err){
+                res.send(err)
+            } else {
+                console.log(computerHard);
+                res.json(computerHard);
+            }
+        })
+    }
+}
+function listarHardwareComputadora(req, res) {
+    if(connection){
+        let sql = 'select * from computerComponentList';
+        connection.query(sql, (err, computerComponentList) => {
+            if(err){
+                res.send(err)
+            } else {
+                console.log(computerComponentList);
+                res.json(computerComponentList);
+            }
+        })
+    }
+}
+function listarSoftwareSysComputadora(req, res) {
+    if(connection){
+        let sql = 'select * from computerSoft';
+        connection.query(sql, (err, computerSoft) => {
+            if(err){
+                res.send(err)
+            } else {
+                console.log(computerSoft);
+                res.json(computerSoft);
             }
         })
     }
 }
 
-function listarVendedores(req, res) {
-    if(connection){
-        let sql = 'select * from Vendedores';
-        connection.query(sql, (err, vendedor) => {
-            if(err){
-                res.send(err)
-            } else {
-                console.log(vendedor);
-                res.json(vendedor);
-            }
-        })
-    }
-}
 
-function listarVentas(req, res) {
-    if(connection){
-        let sql = 'select * from Ventas';
-        connection.query(sql, (err, venta) => {
-            if(err){
-                res.send(err)
-            } else {
-                console.log(venta);
-                res.json(venta);
-            }
-        })
-    }
-}
 
 function obtenerAuto(req, res) {
     if(connection){

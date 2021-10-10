@@ -10,6 +10,16 @@ aulaNum int primary key,
 idEdificio varchar(6),
 foreign key (idEdificio) references edificios(idEdificio)
 );
+/*lista de documentación*/
+create table documentacion(
+idDocumentacion int primary key,
+manual int
+/*0=NO 1=SI*/,
+archivoManual varchar(12),
+garantia int
+/*0=NO 1=SI*/,
+archivoGarantia varchar(12)
+);
 /*lista de software*/
 create table software(
 idSoftware int primary key,
@@ -114,6 +124,7 @@ foreign key (idHard) references computerHard(idHard),
 foreign key (idSoft) references computerSoft(idSoft),
 foreign key (aulaNum) references aula(aulaNum)
 );
+/*lista de redes*/
 create table Network(
 idNetwork int primary key,
 networkName varchar(18),
@@ -121,6 +132,7 @@ networkType int
 /*0=alambrica 1=inalambrica*/,
 netowrkSpeedMB varchar(7)
 );
+/*lista de dispositivos de red*/
 create table NetworkDevices(
 deviceID int primary key,
 idNetwork int,
@@ -134,3 +146,27 @@ foreign key (idNetwork) references Network(idNetwork),
 foreign key (idEdificio) references edificios(idEdificio),
 foreign key (aulaNum) references aula(aulaNum)
 );
+/*lista de tecnicos*/
+create table Tecnicos(
+nControl varchar(10) primary key,
+primerNombre varchar(15),
+segundoNombre varchar(15),
+primerApellido varchar(15),
+segundoApellido varchar(15),
+passkey varchar(10),
+numIncidentesActuales  int,
+numIncidentesResueltos int,
+experienceLvl int
+);
+create table otrosDispositivos(
+idDispositivo varchar(12) primary key,
+nombre varchar(60),
+idDocumentacion int,
+tiempoVida time,
+mantenimientoMinimo date,
+mantenimientoMaximo date,
+aulaNum int,
+foreign key (aulaNum) references aula(aulaNum),
+foreign key (idDocumentacion) references documentacion(idDocumentacion)
+);
+
