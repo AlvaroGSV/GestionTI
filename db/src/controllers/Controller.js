@@ -730,6 +730,216 @@ function eliminarPInventario(req, res){
 //FIN DE FUNCIONES DE INVENTARIO
 
 
+//INICIO DE FUNCIONES DE HARDWARE DE COMPUTADORA
+//AGREGAR HARDWARE DE COMPUTADORA
+function nuevoHardComputadora(req, res){
+    if(connection){
+        const computerHard = req.body;
+
+        if(!computerHard.idHard){
+            return res.status(400).send({error: true, mensaje: "El id de hardware es obligatorio"})
+        }
+        if(!computerHard.salidaVideo){
+            return res.status(400).send({error: true, mensaje: "La salida de video es obligatorio"})
+        }
+        if(!computerHard.salidaAudio){
+            return res.status(400).send({error: true, mensaje: "La salida de audio es obligatorio"})
+        }
+        if(!computerHard.procesador){
+            return res.status(400).send({error: true, mensaje: "La marca de procesador es obligatorio"})
+        }
+        if(!computerHard.familiaProcesador){
+            return res.status(400).send({error: true, mensaje: "La familia de procesador es obligatorio"})
+        }
+        if(!computerHard.tarjetaMadre){
+            return res.status(400).send({error: true, mensaje: "La tarjeta madre es obligatorio"})
+        }
+        if(!computerHard.ventilador){
+            return res.status(400).send({error: true, mensaje: "La existecnia de ventilador es obligatorio"})
+        }
+        let sql = 'INSERT INTO computerHard set ?';
+        connection.query(sql, [computerHard], (err, rows) => {
+            if(err) {
+                res.json(err)
+            } else {
+                res.json({error: false, data: rows, mensaje: "Hardware de computadora agregado con éxito"})
+            }
+        })
+    }
+}
+//VER TODO EL HARDWARE DE LA COMPUTADORA
+function listarHardComputadora(req, res) {
+    if(connection){
+        let sql = 'select * from computerHard';
+        connection.query(sql, (err, computerHard) => {
+            if(err){
+                res.send(err)
+            } else {
+                console.log(computerHard);
+                res.json(computerHard);
+            }
+        })
+    }
+}
+//VER TAL PARTE DE HARDWARE DE LA COMPUTADORA
+function obtenerHardComputadora(req, res) {
+    if(connection){
+        const { id } = req.params;
+        let sql = `SELECT * FROM computerHard WHERE idHard = ${connection.escape(id)}`;
+        connection.query(sql, (err, computerHard) => {
+            if(err){
+                res.json(error);
+            } else {
+                let mensaje = "";
+                if(computerHard === undefined || computerHard.length === 0)
+                mensaje = "Hardware de computadora no encontrado";
+                res.json({error: false, data: computerHard, mensaje: mensaje})
+            }
+        })
+    }
+}
+//EDITAR HARDWARE DE LA COMPUTADORA
+function editarHardComputadora(req, res){
+    if(connection){
+        const { id } = req.params;
+        const computerHard = req.body;
+        let sql = 'UPDATE computerHard set ? where idHard = ?';
+        connection.query(sql, [computerHard, id], (err, rows) => {
+            if(err){
+                res.json(err)
+            } else {
+                let mensaje = "";
+                if(rows.changedRows === 0){
+                    mensaje = "La información es la misma"
+                } else {
+                    mensaje = "Hardware de computadora modificado con exito"
+                }
+                res.json({error: false, data: rows, mensaje: mensaje})
+            }
+        })
+    }
+}
+//ELIMINAR PARTE DEL HARDWARE DE LA COMPUTADORA
+function eliminarHardComputadora(req, res){
+    if(connection){
+        const { id } = req.params;
+        let sql = 'DELETE FROM computerHard WHERE idHard = ?';
+        connection.query(sql, [id], (err, rows) => {
+            if(err){
+                res.json(err)
+            } else {
+                let mensaje = "";
+                if (rows.affectedRows === 0)
+                    mensaje = "Hardware de computadora no encontrado"
+                else 
+                    mensaje= "Hardware de computadora eliminado con exito"
+                res.json({error: false, data: rows, mensaje})
+            }
+        })
+    }
+}
+
+//FIN DE FUNCIONES DE HARDWARE DE LA COMPUTADORA
+
+
+//INICIO DE FUNCIONES DE LISTA DE COMPONENTES DE COMPUTADORA
+//AGREGAR COMPONENTES DE COMPUTADORA
+function nuevaListaComponentesComputadora(req, res){
+    if(connection){
+        const computerComponentList = req.body;
+
+        if(!computerComponentList.idHard){
+            return res.status(400).send({error: true, mensaje: "El id de hardware es obligatorio"})
+        }
+        if(!computerComponentList.idProduto){
+            return res.status(400).send({error: true, mensaje: "El id de producto de inventario es obligatorio"})
+        }
+        let sql = 'INSERT INTO computerComponentList set ?';
+        connection.query(sql, [computerComponentList], (err, rows) => {
+            if(err) {
+                res.json(err)
+            } else {
+                res.json({error: false, data: rows, mensaje: "Componentes añadidos"})
+            }
+        })
+    }
+}
+//VER TODOS LOS COMPONENTES DE COMPUTADORA
+function listaComponentesComputadora(req, res) {
+    if(connection){
+        let sql = 'select * from computerComponentList';
+        connection.query(sql, (err, computerComponentList) => {
+            if(err){
+                res.send(err)
+            } else {
+                console.log(computerComponentList);
+                res.json(computerComponentList);
+            }
+        })
+    }
+}
+//VER TAL COMPONENTES DE COMPUTADORA
+function obtenerComponenteComputadora(req, res) {
+    if(connection){
+        const { id } = req.params;
+        let sql = `SELECT * FROM computerComponentList WHERE idHard = ${connection.escape(id)}`;
+        connection.query(sql, (err, computerComponentList) => {
+            if(err){
+                res.json(error);
+            } else {
+                let mensaje = "";
+                if(computerComponentList === undefined || computerComponentList.length === 0)
+                mensaje = "Componentes de computadora no encontrado";
+                res.json({error: false, data: computerComponentList, mensaje: mensaje})
+            }
+        })
+    }
+}
+//EDITAR COMPONENTES DE COMPUTADORA
+function editarComponenteComputadora(req, res){
+    if(connection){
+        const { id } = req.params;
+        const computerComponentList = req.body;
+        let sql = 'UPDATE computerComponentList set ? where idHard = ?';
+        connection.query(sql, [computerComponentList, id], (err, rows) => {
+            if(err){
+                res.json(err)
+            } else {
+                let mensaje = "";
+                if(rows.changedRows === 0){
+                    mensaje = "La información es la misma"
+                } else {
+                    mensaje = "Componente de computadora modificado con exito"
+                }
+                res.json({error: false, data: rows, mensaje: mensaje})
+            }
+        })
+    }
+}
+//ELIMINAR COMPONENTES DE COMPUTADORA
+function eliminarComponenteComputadora(req, res){
+    if(connection){
+        const { idHard } = req.params;
+        const idProduto = req.body;
+        let sql = 'DELETE FROM computerComponentList WHERE idHard = ? AND idProduto = ? ';
+        connection.query(sql, [idHard, idProduto], (err, rows) => {
+            if(err){
+                res.json(err)
+            } else {
+                let mensaje = "";
+                if (rows.affectedRows === 0)
+                    mensaje = "Lista de componentes no encontrado"
+                else 
+                    mensaje= "Lista de componentes eliminada con exito"
+                res.json({error: false, data: rows, mensaje})
+            }
+        })
+    }
+}
+
+//FIN DE FUNCIONES DE HARDWARE DE LA COMPUTADORA
+
+
 //EXPORTACION DE CONTROLADORES
 
 module.exports = {
@@ -767,5 +977,15 @@ module.exports = {
     listarPInventario,
     obtenerPInventario,
     editarPInventario,
-    eliminarPInventario
+    eliminarPInventario,
+    nuevoHardComputadora,
+    listarHardComputadora,
+    obtenerHardComputadora,
+    editarHardComputadora,
+    eliminarHardComputadora,
+    nuevaListaComponentesComputadora,
+    listaComponentesComputadora,
+    obtenerComponenteComputadora,
+    editarComponenteComputadora,
+    eliminarComponenteComputadora
 }

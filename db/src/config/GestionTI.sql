@@ -158,6 +158,7 @@ numIncidentesActuales  int,
 numIncidentesResueltos int,
 experienceLvl int
 );
+/*lista de otros dispositivos*/
 create table otrosDispositivos(
 idDispositivo varchar(12) primary key,
 nombre varchar(60),
