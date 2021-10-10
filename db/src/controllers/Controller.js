@@ -1,6 +1,27 @@
 const { json } = require('body-parser');
 const connection = require('../config/connection');
 
+//INICIO DE FUNCIONES DE EDIFICIOS
+//AGREGAR EDIFICIO
+function nuevoEdificio(req, res){
+    if(connection){
+        const edificio = req.body;
+
+        if(!edificio.idEdificio){
+            return res.status(400).send({error: true, mensaje: "El ID es obligatorio"})
+        }
+    
+        let sql = 'INSERT INTO edificios set ?';
+        connection.query(sql, [edificio], (err, rows) => {
+            if(err) {
+                res.json(err)
+            } else {
+                res.json({error: false, data: rows, mensaje: "edificio registrado con éxito"})
+            }
+        })
+    }
+}
+//VER TODOS LOS EDIFICIOS
 function listarEdificos(req, res) {
     if(connection){
         let sql = 'select * from edificios';
@@ -14,6 +35,68 @@ function listarEdificos(req, res) {
         })
     }
 }
+//VER TAL EDIFICIO
+function obtenerEdificios(req, res) {
+    if(connection){
+        const { id } = req.params;
+        let sql = `SELECT * FROM edificios WHERE idEdificio= ${connection.escape(id)}`;
+        connection.query(sql, (err, edificio) => {
+            if(err){
+                res.json(error);
+            } else {
+                let mensaje = "";
+                if(edificio === undefined || edificio.length === 0)
+                mensaje = "Edificio no encontrado";
+
+                res.json({error: false, data: edificio, mensaje: mensaje})
+            }
+        })
+    }
+}
+//EDITAR EDIFICIO
+function editarEdificio(req, res){
+    if(connection){
+        const { id } = req.params;
+        const edificio = req.body;
+        let sql = 'UPDATE edificios set ? where idEdificio = ?';
+        connection.query(sql, [edificio, id], (err, rows) => {
+            if(err){
+                res.json(err)
+            } else {
+                let mensaje = "";
+                if(rows.changedRows === 0){
+                    mensaje = "La información es la misma"
+                } else {
+                    mensaje = "Información del edificio modificada con exito"
+                }
+                res.json({error: false, data: rows, mensaje: mensaje})
+            }
+        })
+    }
+}
+//ELIMINAR EDIFICIO
+function eliminarVendedor(req, res){
+    if(connection){
+        const { id } = req.params;
+        let sql = 'DELETE FROM edificios WHERE idEdificio = ?';
+        connection.query(sql, [id], (err, rows) => {
+            if(err){
+                res.json(err)
+            } else {
+                let mensaje = "";
+                if (rows.affectedRows === 0)
+                    mensaje = "Edificio no encontrada"
+                else 
+                    mensaje= "Edificio eliminado con exito"
+
+                res.json({error: false, data: rows, mensaje})
+            }
+        })
+    }
+}
+
+//FIN DE FUNCIONES DE EDIFICIOS
+
 function listarAulas(req, res) {
     if(connection){
         let sql = 'select * from aula';
