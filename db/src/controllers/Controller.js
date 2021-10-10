@@ -36,7 +36,7 @@ function listarEdificos(req, res) {
     }
 }
 //VER TAL EDIFICIO
-function obtenerEdificios(req, res) {
+function obtenerEdificio(req, res) {
     if(connection){
         const { id } = req.params;
         let sql = `SELECT * FROM edificios WHERE idEdificio= ${connection.escape(id)}`;
@@ -96,6 +96,107 @@ function eliminarVendedor(req, res){
 }
 
 //FIN DE FUNCIONES DE EDIFICIOS
+
+
+
+//INICIO DE FUNCIONES DE AULAS
+//AGREGAR AULA
+function nuevaAula(req, res){
+    if(connection){
+        const aula = req.body;
+
+        if(!aula.aulaNum){
+            return res.status(400).send({error: true, mensaje: "El aula es obligatorio"})
+        }
+        if(!aula.idEdificio){
+            return res.status(400).send({error: true, mensaje: "El edificio es obligatorio"})
+        }
+    
+        let sql = 'INSERT INTO aula set ?';
+        connection.query(sql, [edificio], (err, rows) => {
+            if(err) {
+                res.json(err)
+            } else {
+                res.json({error: false, data: rows, mensaje: "Aula registrada con éxito"})
+            }
+        })
+    }
+}
+//VER TODOS LAS AULAS
+function listarAulas(req, res) {
+    if(connection){
+        let sql = 'select * from aula';
+        connection.query(sql, (err, aula) => {
+            if(err){
+                res.send(err)
+            } else {
+                console.log(aula);
+                res.json(aula);
+            }
+        })
+    }
+}
+//VER TAL AULA
+function obtenerAula(req, res) {
+    if(connection){
+        const { id } = req.params;
+        let sql = `SELECT * FROM aula WHERE aulaNum= ${connection.escape(id)}`;
+        connection.query(sql, (err, aula) => {
+            if(err){
+                res.json(error);
+            } else {
+                let mensaje = "";
+                if(aula === undefined || aula.length === 0)
+                mensaje = "Aula no encontrado";
+
+                res.json({error: false, data: aula, mensaje: mensaje})
+            }
+        })
+    }
+}
+//EDITAR AULA
+function editarAula(req, res){
+    if(connection){
+        const { id } = req.params;
+        const aula = req.body;
+        let sql = 'UPDATE aula set ? where aulaNum = ?';
+        connection.query(sql, [edificio, id], (err, rows) => {
+            if(err){
+                res.json(err)
+            } else {
+                let mensaje = "";
+                if(rows.changedRows === 0){
+                    mensaje = "La información es la misma"
+                } else {
+                    mensaje = "Información del aula modificada con exito"
+                }
+                res.json({error: false, data: rows, mensaje: mensaje})
+            }
+        })
+    }
+}
+//ELIMINAR AULA
+function eliminarVendedor(req, res){
+    if(connection){
+        const { id } = req.params;
+        let sql = 'DELETE FROM aula WHERE aulaNum = ?';
+        connection.query(sql, [id], (err, rows) => {
+            if(err){
+                res.json(err)
+            } else {
+                let mensaje = "";
+                if (rows.affectedRows === 0)
+                    mensaje = "Aula no encontrada"
+                else 
+                    mensaje= "Aula eliminada con exito"
+
+                res.json({error: false, data: rows, mensaje})
+            }
+        })
+    }
+}
+
+//FIN DE FUNCIONES DE AULAS
 
 function listarAulas(req, res) {
     if(connection){
