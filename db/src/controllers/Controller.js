@@ -75,7 +75,7 @@ function editarEdificio(req, res){
     }
 }
 //ELIMINAR EDIFICIO
-function eliminarVendedor(req, res){
+function eliminarEdificio(req, res){
     if(connection){
         const { id } = req.params;
         let sql = 'DELETE FROM edificios WHERE idEdificio = ?';
@@ -96,7 +96,6 @@ function eliminarVendedor(req, res){
 }
 
 //FIN DE FUNCIONES DE EDIFICIOS
-
 
 
 //INICIO DE FUNCIONES DE AULAS
@@ -176,7 +175,7 @@ function editarAula(req, res){
     }
 }
 //ELIMINAR AULA
-function eliminarVendedor(req, res){
+function eliminarAula(req, res){
     if(connection){
         const { id } = req.params;
         let sql = 'DELETE FROM aula WHERE aulaNum = ?';
@@ -198,20 +197,151 @@ function eliminarVendedor(req, res){
 
 //FIN DE FUNCIONES DE AULAS
 
-function listarAulas(req, res) {
+
+//INICIO DE FUNCIONES DE DOCUMENTACION
+//AGREGAR DOCUMENTACION
+function nuevaDocumentacion(req, res){
     if(connection){
-        let sql = 'select * from aula';
-        connection.query(sql, (err, aula) => {
-            if(err){
-                res.send(err)
+        const documentacion = req.body;
+
+        if(!documentacion.idDocumentacion){
+            return res.status(400).send({error: true, mensaje: "El aula es obligatorio"})
+        }
+        if(!documentacion.manual){
+            return res.status(400).send({error: true, mensaje: "La posibilidad de la existencia de manual es importante"})
+        }
+        if(!documentacion.archivoManual){
+            return res.status(400).send({error: true, mensaje: "El archivo donde se guardo el manual es importante"})
+        }
+        if(!documentacion.garantia){
+            return res.status(400).send({error: true, mensaje: "La posibilidad de la existencia de la grantia es importante"})
+        }
+        if(!documentacion.archivoGarantia){
+            return res.status(400).send({error: true, mensaje: "El archivo donde se guardo la garantia es importante"})
+        }
+    
+        let sql = 'INSERT INTO documentacion set ?';
+        connection.query(sql, [documentacion], (err, rows) => {
+            if(err) {
+                res.json(err)
             } else {
-                console.log(aula);
-                res.json(aula);
+                res.json({error: false, data: rows, mensaje: "Documentacion registrada con éxito"})
             }
         })
     }
 }
-function listarSoftwares(req, res) {
+//VER TODOS LAS DOCUMENTACIONES
+function listarDocumentaciones(req, res) {
+    if(connection){
+        let sql = 'select * from documentacion';
+        connection.query(sql, (err, documentacion) => {
+            if(err){
+                res.send(err)
+            } else {
+                console.log(documentacion);
+                res.json(documentacion);
+            }
+        })
+    }
+}
+//VER TAL DOUMENTAION
+function obtenerDocumentacion(req, res) {
+    if(connection){
+        const { id } = req.params;
+        let sql = `SELECT * FROM documentacion WHERE idDocumentacion= ${connection.escape(id)}`;
+        connection.query(sql, (err, documentacion) => {
+            if(err){
+                res.json(error);
+            } else {
+                let mensaje = "";
+                if(documentacion === undefined || documentacion.length === 0)
+                mensaje = "Documentacion no encontrada";
+                res.json({error: false, data: documentacion, mensaje: mensaje})
+            }
+        })
+    }
+}
+//EDITAR DOCUMENTACION
+function editarAula(req, res){
+    if(connection){
+        const { id } = req.params;
+        const documentacion = req.body;
+        let sql = 'UPDATE documentacion set ? where idDocumentacion = ?';
+        connection.query(sql, [documentacion, id], (err, rows) => {
+            if(err){
+                res.json(err)
+            } else {
+                let mensaje = "";
+                if(rows.changedRows === 0){
+                    mensaje = "La información es la misma"
+                } else {
+                    mensaje = "Información de la documentacion modificada con exito"
+                }
+                res.json({error: false, data: rows, mensaje: mensaje})
+            }
+        })
+    }
+}
+//ELIMINAR DOCUMENTACION
+function eliminarAula(req, res){
+    if(connection){
+        const { id } = req.params;
+        let sql = 'DELETE FROM documentacion WHERE idDocumentacion = ?';
+        connection.query(sql, [id], (err, rows) => {
+            if(err){
+                res.json(err)
+            } else {
+                let mensaje = "";
+                if (rows.affectedRows === 0)
+                    mensaje = "Documentacion no encontrada"
+                else 
+                    mensaje= "Documentacion eliminada con exito"
+                res.json({error: false, data: rows, mensaje})
+            }
+        })
+    }
+}
+
+//FIN DE FUNCIONES DE DOCUMENTACION
+
+
+//INICIO DE FUNCIONES DE SOFTWARE
+//AGREGAR SOFTWARE
+function nuevoSoftware(req, res){
+    if(connection){
+        const software = req.body;
+
+        if(!software.idSoftware){
+            return res.status(400).send({error: true, mensaje: "El id del software es obligatorio"})
+        }
+        if(!software.Nombre){
+            return res.status(400).send({error: true, mensaje: "El nombre del software es obligatorio"})
+        }
+        if(!software.Desarrollador){
+            return res.status(400).send({error: true, mensaje: "El nombre del desarrollador es obligatorio"})
+        }
+        if(!software.Version){
+            return res.status(400).send({error: true, mensaje: "La version del software es obligatorio"})
+        }
+        if(!software.sistemaOperativo){
+            return res.status(400).send({error: true, mensaje: "El sistema operativo en el que opera es obligatorio"})
+        }
+        if(!software.pesoMb){
+            return res.status(400).send({error: true, mensaje: "El peso en MB es obligatorio"})
+        }
+    
+        let sql = 'INSERT INTO software set ?';
+        connection.query(sql, [software], (err, rows) => {
+            if(err) {
+                res.json(err)
+            } else {
+                res.json({error: false, data: rows, mensaje: "Software registrada con éxito"})
+            }
+        })
+    }
+}
+//VER TODOS LOS SOFTWARES
+function listarSoftware(req, res) {
     if(connection){
         let sql = 'select * from software';
         connection.query(sql, (err, software) => {
@@ -224,247 +354,30 @@ function listarSoftwares(req, res) {
         })
     }
 }
-function listarLicenciasSoftwares(req, res) {
-    if(connection){
-        let sql = 'select * from licencia';
-        connection.query(sql, (err, licencia) => {
-            if(err){
-                res.send(err)
-            } else {
-                console.log(licencia);
-                res.json(licencia);
-            }
-        })
-    }
-}
-function listarCategoriasInventario(req, res) {
-    if(connection){
-        let sql = 'select * from categoriaInventario';
-        connection.query(sql, (err, categoriaInventario) => {
-            if(err){
-                res.send(err)
-            } else {
-                console.log(categoriaInventario);
-                res.json(categoriaInventario);
-            }
-        })
-    }
-}
-function listarInventario(req, res) {
-    if(connection){
-        let sql = 'select * from inventario';
-        connection.query(sql, (err, inventario) => {
-            if(err){
-                res.send(err)
-            } else {
-                console.log(inventario);
-                res.json(inventario);
-            }
-        })
-    }
-}
-function listarHardware(req, res) {
-    if(connection){
-        let sql = 'select * from computerHard';
-        connection.query(sql, (err, computerHard) => {
-            if(err){
-                res.send(err)
-            } else {
-                console.log(computerHard);
-                res.json(computerHard);
-            }
-        })
-    }
-}
-function listarHardwareComputadora(req, res) {
-    if(connection){
-        let sql = 'select * from computerComponentList';
-        connection.query(sql, (err, computerComponentList) => {
-            if(err){
-                res.send(err)
-            } else {
-                console.log(computerComponentList);
-                res.json(computerComponentList);
-            }
-        })
-    }
-}
-function listarSoftwareSysComputadora(req, res) {
-    if(connection){
-        let sql = 'select * from computerSoft';
-        connection.query(sql, (err, computerSoft) => {
-            if(err){
-                res.send(err)
-            } else {
-                console.log(computerSoft);
-                res.json(computerSoft);
-            }
-        })
-    }
-}
-
-
-
-function obtenerAuto(req, res) {
+//VER TAL SOFTWARE
+function obtenerSoftware(req, res) {
     if(connection){
         const { id } = req.params;
-        let sql = `SELECT * FROM Autos WHERE IDAuto= ${connection.escape(id)}`;
-        connection.query(sql, (err, auto) => {
+        let sql = `SELECT * FROM software WHERE idSoftware = ${connection.escape(id)}`;
+        connection.query(sql, (err, software) => {
             if(err){
                 res.json(error);
             } else {
                 let mensaje = "";
-                if(auto === undefined || auto.length === 0)
-                mensaje = "Auto no encontrado";
-
-                res.json({error: false, data: auto, mensaje: mensaje})
+                if(software === undefined || software.length === 0)
+                mensaje = "Software no encontrada";
+                res.json({error: false, data: software, mensaje: mensaje})
             }
         })
     }
 }
-
-function obtenerVendedor(req, res) {
+//EDITAR SOFTWARE
+function editarSoftware(req, res){
     if(connection){
         const { id } = req.params;
-        let sql = `SELECT * FROM Vendedores WHERE IDVendedor= ${connection.escape(id)}`;
-        connection.query(sql, (err, vendedor) => {
-            if(err){
-                res.json(error);
-            } else {
-                let mensaje = "";
-                if(vendedor === undefined || vendedor.length === 0)
-                mensaje = "Vendedor no encontrado";
-
-                res.json({error: false, data: vendedor, mensaje: mensaje})
-            }
-        })
-    }
-}
-
-function logIn(req, res) {
-    if(connection){
-        const { IDVendedor } = req.params;
-        const { password } = req.params;
-        let sql = `SELECT * FROM Vendedores WHERE IDVendedor = ${connection.escape(IDVendedor)} and password = ${connection.escape(password)}`;
-        connection.query(sql, (err, vendedor) => {
-            if(err){
-                res.json(error);
-            } else {
-                let mensaje = "";
-                if(vendedor === undefined || vendedor.length === 0)
-                mensaje = "Vendedor no encontrado";
-
-                res.json({error: false, data: vendedor, mensaje: mensaje})
-            }
-        })
-    }
-}
-
-function obtenerVentaDeAuto(req, res) {
-    if(connection){
-        const { id } = req.params;
-        let sql = `SELECT * FROM Ventas WHERE IDAuto= ${connection.escape(id)}`;
-        connection.query(sql, (err, auto) => {
-            if(err){
-                res.json(error);
-            } else {
-                let mensaje = "";
-                if(auto === undefined || auto.length === 0)
-                mensaje = "Venta de auto no encontrada";
-
-                res.json({error: false, data: auto, mensaje: mensaje})
-            }
-        })
-    }
-}
-
-function obtenerVentasDeVendedor(req, res) {
-    if(connection){
-        const { id } = req.params;
-        let sql = `SELECT * FROM Ventas WHERE IDVendedor= ${connection.escape(id)}`;
-        connection.query(sql, (err, vendedor) => {
-            if(err){
-                res.json(error);
-            } else {
-                let mensaje = "";
-                if(vendedor === undefined || vendedor.length === 0)
-                mensaje = "El vendedor no a vendido ningun auto";
-
-                res.json({error: false, data: vendedor, mensaje: mensaje})
-            }
-        })
-    }
-}
-
-function altaAuto(req, res){
-    if(connection){
-        const auto = req.body;
-
-        if(!auto.titulo){
-            return res.status(400).send({error: true, mensaje: "El nombre es obligatorio"})
-        }
-
-        if(auto.anio && auto.anio.length !== 4) {
-            return res.status(400).send({error: true, mensaje: "La longitud debe ser de 4."})
-        }
-    
-
-        let sql = 'INSERT INTO Autos set ?';
-        connection.query(sql, [auto], (err, rows) => {
-            if(err) {
-                res.json(err)
-            } else {
-                res.json({error: false, data: rows, mensaje: "Auto dado de alta con éxito"})
-            }
-        })
-    }
-}
-
-function nuevoVendedor(req, res){
-    if(connection){
-        const vendedor = req.body;
-
-        if(!vendedor.nombre){
-            return res.status(400).send({error: true, mensaje: "El nombre es obligatorio"})
-        }
-    
-        let sql = 'INSERT INTO Vendedores set ?';
-        connection.query(sql, [vendedor], (err, rows) => {
-            if(err) {
-                res.json(err)
-            } else {
-                res.json({error: false, data: rows, mensaje: "Vandedor registrado con éxito"})
-            }
-        })
-    }
-}
-
-function venta(req, res){
-    if(connection){
-        const venta = req.body;
-
-        if(!venta.nombre){
-            return res.status(400).send({error: true, mensaje: "El nombre es obligatorio"})
-        }
-    
-
-        let sql = 'INSERT INTO Ventas set ?';
-        connection.query(sql, [venta], (err, rows) => {
-            if(err) {
-                res.json(err)
-            } else {
-                res.json({error: false, data: rows, mensaje: "El auto se vendio con éxito"})
-            }
-        })
-    }
-}
-
-function editarAuto(req, res){
-    if(connection){
-        const { id } = req.params;
-        const auto = req.body;
-        let sql = 'UPDATE Autos set ? where IDAuto = ?';
-        connection.query(sql, [auto, id], (err, rows) => {
+        const software = req.body;
+        let sql = 'UPDATE software set ? where idSoftware = ?';
+        connection.query(sql, [software, id], (err, rows) => {
             if(err){
                 res.json(err)
             } else {
@@ -472,111 +385,35 @@ function editarAuto(req, res){
                 if(rows.changedRows === 0){
                     mensaje = "La información es la misma"
                 } else {
-                    mensaje = "Información del auto modificada con exito"
+                    mensaje = "Información del software modificada con exito"
                 }
                 res.json({error: false, data: rows, mensaje: mensaje})
             }
         })
     }
 }
-
-function editarVendedor(req, res){
+//ELIMINAR SOFTWARE
+function eliminarSoftware(req, res){
     if(connection){
         const { id } = req.params;
-        const vendedor = req.body;
-        let sql = 'UPDATE Vendedores set ? where IDVendedor = ?';
-        connection.query(sql, [vendedor, id], (err, rows) => {
-            if(err){
-                res.json(err)
-            } else {
-                let mensaje = "";
-                if(rows.changedRows === 0){
-                    mensaje = "La información es la misma"
-                } else {
-                    mensaje = "Información del vendedor modificada con exito"
-                }
-                res.json({error: false, data: rows, mensaje: mensaje})
-            }
-        })
-    }
-}
-
-function editarVenta(req, res){
-    if(connection){
-        const { id } = req.params;
-        const venta = req.body;
-        let sql = 'UPDATE Ventas set ? where IDVenta = ?';
-        connection.query(sql, [venta, id], (err, rows) => {
-            if(err){
-                res.json(err)
-            } else {
-                let mensaje = "";
-                if(rows.changedRows === 0){
-                    mensaje = "La información es la misma"
-                } else {
-                    mensaje = "Información de la venta modificada con exito"
-                }
-                res.json({error: false, data: rows, mensaje: mensaje})
-            }
-        })
-    }
-}
-
-function eliminarAuto(req, res){
-    if(connection){
-        const { id } = req.params;
-        let sql = 'DELETE FROM Autos WHERE IDAuto = ?';
+        let sql = 'DELETE FROM software WHERE idSoftware = ?';
         connection.query(sql, [id], (err, rows) => {
             if(err){
                 res.json(err)
             } else {
                 let mensaje = "";
                 if (rows.affectedRows === 0)
-                    mensaje = "Auto no encontrada"
+                    mensaje = "Software no encontrado"
                 else 
-                    mensaje= "Auto eliminado con exito"
-
+                    mensaje= "Software eliminado con exito"
                 res.json({error: false, data: rows, mensaje})
             }
         })
     }
 }
 
-function eliminarVendedor(req, res){
-    if(connection){
-        const { id } = req.params;
-        let sql = 'DELETE FROM Vendedores WHERE IDVendedor = ?';
-        connection.query(sql, [id], (err, rows) => {
-            if(err){
-                res.json(err)
-            } else {
-                let mensaje = "";
-                if (rows.affectedRows === 0)
-                    mensaje = "Vendedor no encontrada"
-                else 
-                    mensaje= "Vendedor eliminado con exito"
+//FIN DE FUNCIONES DE SOFTWARE
 
-                res.json({error: false, data: rows, mensaje})
-            }
-        })
-    }
-}
 
 module.exports = {
-    listarAutos,
-    listarVendedores,
-    listarVentas,
-    obtenerAuto,
-    obtenerVendedor,
-    obtenerVentaDeAuto,
-    obtenerVentasDeVendedor,
-    altaAuto,
-    nuevoVendedor,
-    venta,
-    editarAuto,
-    editarVendedor,
-    editarVenta,
-    eliminarAuto,
-    eliminarVendedor,
-    logIn
 }
