@@ -262,7 +262,7 @@ function obtenerDocumentacion(req, res) {
     }
 }
 //EDITAR DOCUMENTACION
-function editarAula(req, res){
+function editarDocumentacion(req, res){
     if(connection){
         const { id } = req.params;
         const documentacion = req.body;
@@ -283,7 +283,7 @@ function editarAula(req, res){
     }
 }
 //ELIMINAR DOCUMENTACION
-function eliminarAula(req, res){
+function eliminarDocumentacion(req, res){
     if(connection){
         const { id } = req.params;
         let sql = 'DELETE FROM documentacion WHERE idDocumentacion = ?';
@@ -415,5 +415,357 @@ function eliminarSoftware(req, res){
 //FIN DE FUNCIONES DE SOFTWARE
 
 
+//INICIO DE FUNCIONES DE LICENCIA
+//AGREGAR LICENCIA
+function nuevaLicencia(req, res){
+    if(connection){
+        const licencia = req.body;
+
+        if(!licencia.idLicencia){
+            return res.status(400).send({error: true, mensaje: "El id del licencia es obligatorio"})
+        }
+        if(!licencia.serialNum){
+            return res.status(400).send({error: true, mensaje: "El numero serial es obligatorio"})
+        }
+        if(!licencia.idSoftware){
+            return res.status(400).send({error: true, mensaje: "El id del software al que pertenee la licencia es obligatorio"})
+        }
+        if(!licencia.ocuped){
+            return res.status(400).send({error: true, mensaje: "La ocupacion actual de la licencia del software es obligatorio"})
+        }
+        let sql = 'INSERT INTO licencia set ?';
+        connection.query(sql, [licencia], (err, rows) => {
+            if(err) {
+                res.json(err)
+            } else {
+                res.json({error: false, data: rows, mensaje: "Licencia registrada con éxito"})
+            }
+        })
+    }
+}
+//VER TODAS LOS LICENCIAS
+function listarLicencias(req, res) {
+    if(connection){
+        let sql = 'select * from licencia';
+        connection.query(sql, (err, licencia) => {
+            if(err){
+                res.send(err)
+            } else {
+                console.log(licencia);
+                res.json(licencia);
+            }
+        })
+    }
+}
+//VER TAL LICENCIA
+function obtenerLicencia(req, res) {
+    if(connection){
+        const { id } = req.params;
+        let sql = `SELECT * FROM licencia WHERE idLicencia = ${connection.escape(id)}`;
+        connection.query(sql, (err, licencia) => {
+            if(err){
+                res.json(error);
+            } else {
+                let mensaje = "";
+                if(licencia === undefined || licencia.length === 0)
+                mensaje = "Licencia no encontrada";
+                res.json({error: false, data: licencia, mensaje: mensaje})
+            }
+        })
+    }
+}
+//EDITAR LICENCIA
+function editarLicencia(req, res){
+    if(connection){
+        const { id } = req.params;
+        const licencia = req.body;
+        let sql = 'UPDATE licencia set ? where idLicencia = ?';
+        connection.query(sql, [licencia, id], (err, rows) => {
+            if(err){
+                res.json(err)
+            } else {
+                let mensaje = "";
+                if(rows.changedRows === 0){
+                    mensaje = "La información es la misma"
+                } else {
+                    mensaje = "Información de la licencia modificada con exito"
+                }
+                res.json({error: false, data: rows, mensaje: mensaje})
+            }
+        })
+    }
+}
+//ELIMINAR LICENCIA
+function eliminarLicencia(req, res){
+    if(connection){
+        const { id } = req.params;
+        let sql = 'DELETE FROM licencia WHERE idLicencia = ?';
+        connection.query(sql, [id], (err, rows) => {
+            if(err){
+                res.json(err)
+            } else {
+                let mensaje = "";
+                if (rows.affectedRows === 0)
+                    mensaje = "Licencia no encontrado"
+                else 
+                    mensaje= "Licencia eliminado con exito"
+                res.json({error: false, data: rows, mensaje})
+            }
+        })
+    }
+}
+
+//FIN DE FUNCIONES DE LICENCIA
+
+
+//INICIO DE FUNCIONES DE CATEGORIAS DE INVENTARIO
+//AGREGAR CATEGORIA DE INVENTARIO
+function nuevaCatInventario(req, res){
+    if(connection){
+        const categoriaInventario = req.body;
+
+        if(!categoriaInventario.idCategoria){
+            return res.status(400).send({error: true, mensaje: "El id de categoria es obligatorio"})
+        }
+        if(!categoriaInventario.nameCategoria){
+            return res.status(400).send({error: true, mensaje: "El nombre de categoria es obligatorio"})
+        }
+        let sql = 'INSERT INTO categoriaInventario set ?';
+        connection.query(sql, [categoriaInventario], (err, rows) => {
+            if(err) {
+                res.json(err)
+            } else {
+                res.json({error: false, data: rows, mensaje: "Categoria registrada con éxito"})
+            }
+        })
+    }
+}
+//VER TODAS LOS CATEGORIAS DE INVENTARIO
+function listarCatInventario(req, res) {
+    if(connection){
+        let sql = 'select * from categoriaInventario';
+        connection.query(sql, (err, categoriaInventario) => {
+            if(err){
+                res.send(err)
+            } else {
+                console.log(categoriaInventario);
+                res.json(categoriaInventario);
+            }
+        })
+    }
+}
+//VER TAL CATEGORIA DE INVENTARIO
+function obtenerCatInventario(req, res) {
+    if(connection){
+        const { id } = req.params;
+        let sql = `SELECT * FROM categoriaInventario WHERE idCategoria = ${connection.escape(id)}`;
+        connection.query(sql, (err, categoriaInventario) => {
+            if(err){
+                res.json(error);
+            } else {
+                let mensaje = "";
+                if(categoriaInventario === undefined || categoriaInventario.length === 0)
+                mensaje = "Categoria de Inventario no encontrada";
+                res.json({error: false, data: categoriaInventario, mensaje: mensaje})
+            }
+        })
+    }
+}
+//EDITAR CATEGORIA DE INVENTARIO
+function editarCatInventario(req, res){
+    if(connection){
+        const { id } = req.params;
+        const categoriaInventario = req.body;
+        let sql = 'UPDATE categoriaInventario set ? where idCategoria = ?';
+        connection.query(sql, [categoriaInventario, id], (err, rows) => {
+            if(err){
+                res.json(err)
+            } else {
+                let mensaje = "";
+                if(rows.changedRows === 0){
+                    mensaje = "La información es la misma"
+                } else {
+                    mensaje = "Información de la categoria de inventario modificada con exito"
+                }
+                res.json({error: false, data: rows, mensaje: mensaje})
+            }
+        })
+    }
+}
+//ELIMINAR CATEGORIA DE INVENTARIO
+function eliminarCatInventario(req, res){
+    if(connection){
+        const { id } = req.params;
+        let sql = 'DELETE FROM categoriaInventario WHERE idCategoria = ?';
+        connection.query(sql, [id], (err, rows) => {
+            if(err){
+                res.json(err)
+            } else {
+                let mensaje = "";
+                if (rows.affectedRows === 0)
+                    mensaje = "Categoria de inventario no encontrado"
+                else 
+                    mensaje= "Categoria de inventario eliminado con exito"
+                res.json({error: false, data: rows, mensaje})
+            }
+        })
+    }
+}
+
+//FIN DE FUNCIONES DE CATEGORIA DE INVENTARIO
+
+
+//INICIO DE FUNCIONES DE INVENTARIO
+//AGREGAR INVENTARIO
+function nuevaPInventario(req, res){
+    if(connection){
+        const inventario = req.body;
+
+        if(!inventario.idProduto){
+            return res.status(400).send({error: true, mensaje: "El id de producto es obligatorio"})
+        }
+        if(!inventario.idCategoria){
+            return res.status(400).send({error: true, mensaje: "El id de categoria es obligatorio"})
+        }
+        if(!inventario.altura){
+            return res.status(400).send({error: true, mensaje: "La altura de producto es obligatorio"})
+        }
+        if(!inventario.ancho){
+            return res.status(400).send({error: true, mensaje: "El ancho de producto es obligatorio"})
+        }
+        if(!inventario.largo){
+            return res.status(400).send({error: true, mensaje: "El largo de producto es obligatorio"})
+        }
+        if(!inventario.marca){
+            return res.status(400).send({error: true, mensaje: "La marca de producto es obligatorio"})
+        }
+        if(!inventario.capacidadMB){
+            return res.status(400).send({error: true, mensaje: "La capacidad en MB de producto es obligatorio"})
+        }
+        if(!inventario.tipoPuerto){
+            return res.status(400).send({error: true, mensaje: "El tipo de puerto de producto es obligatorio"})
+        }
+        let sql = 'INSERT INTO inventario set ?';
+        connection.query(sql, [inventario], (err, rows) => {
+            if(err) {
+                res.json(err)
+            } else {
+                res.json({error: false, data: rows, mensaje: "Producto agregado al inventario con éxito"})
+            }
+        })
+    }
+}
+//VER TODO EL INVENTARIO
+function listarPInventario(req, res) {
+    if(connection){
+        let sql = 'select * from inventario';
+        connection.query(sql, (err, inventario) => {
+            if(err){
+                res.send(err)
+            } else {
+                console.log(inventario);
+                res.json(inventario);
+            }
+        })
+    }
+}
+//VER TAL PARTE DEL INVENTARIO
+function obtenerPInventario(req, res) {
+    if(connection){
+        const { id } = req.params;
+        let sql = `SELECT * FROM inventario WHERE idProduto = ${connection.escape(id)}`;
+        connection.query(sql, (err, inventario) => {
+            if(err){
+                res.json(error);
+            } else {
+                let mensaje = "";
+                if(inventario === undefined || inventario.length === 0)
+                mensaje = "Producto no encontrado en inventario";
+                res.json({error: false, data: inventario, mensaje: mensaje})
+            }
+        })
+    }
+}
+//EDITAR INVENTARIO
+function editarPInventario(req, res){
+    if(connection){
+        const { id } = req.params;
+        const inventario = req.body;
+        let sql = 'UPDATE inventario set ? where idProduto = ?';
+        connection.query(sql, [inventario, id], (err, rows) => {
+            if(err){
+                res.json(err)
+            } else {
+                let mensaje = "";
+                if(rows.changedRows === 0){
+                    mensaje = "La información es la misma"
+                } else {
+                    mensaje = "Información del producto modificado con exito"
+                }
+                res.json({error: false, data: rows, mensaje: mensaje})
+            }
+        })
+    }
+}
+//ELIMINAR PARTE DEL INVENTARIO
+function eliminarPInventario(req, res){
+    if(connection){
+        const { id } = req.params;
+        let sql = 'DELETE FROM inventario WHERE idProduto = ?';
+        connection.query(sql, [id], (err, rows) => {
+            if(err){
+                res.json(err)
+            } else {
+                let mensaje = "";
+                if (rows.affectedRows === 0)
+                    mensaje = "Producto de inventario no encontrado"
+                else 
+                    mensaje= "Producto de inventario eliminado con exito"
+                res.json({error: false, data: rows, mensaje})
+            }
+        })
+    }
+}
+
+//FIN DE FUNCIONES DE INVENTARIO
+
+
+//EXPORTACION DE CONTROLADORES
+
 module.exports = {
+    nuevoEdificio,
+    listarEdificos,
+    obtenerEdificio,
+    editarEdificio,
+    eliminarEdificio,
+    nuevaAula,
+    listarAulas,
+    obtenerAula,
+    editarAula,
+    eliminarAula,
+    nuevaDocumentacion,
+    listarDocumentaciones,
+    obtenerDocumentacion,
+    editarDocumentacion,
+    eliminarDocumentacion,
+    nuevoSoftware,
+    listarSoftware,
+    obtenerSoftware,
+    editarSoftware,
+    eliminarSoftware,
+    nuevaLicencia,
+    listarLicencias,
+    obtenerLicencia,
+    editarLicencia,
+    eliminarLicencia,
+    nuevaCatInventario,
+    listarCatInventario,
+    obtenerCatInventario,
+    editarCatInventario,
+    eliminarCatInventario,
+    nuevaPInventario,
+    listarPInventario,
+    obtenerPInventario,
+    editarPInventario,
+    eliminarPInventario
 }
