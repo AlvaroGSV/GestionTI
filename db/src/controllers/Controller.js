@@ -940,6 +940,875 @@ function eliminarComponenteComputadora(req, res){
 //FIN DE FUNCIONES DE HARDWARE DE LA COMPUTADORA
 
 
+//INICIO DE FUNCIONES DE CONFIGURACION DE SOFTWARE DE COMPUTADORA
+//AGREGAR SOFTWARE DE CONFIGURACION DE SOFTWARE DE COMPUTADORA
+function nuevaConfigSftwCompu(req, res){
+    if(connection){
+        const softConfig = req.body;
+        if(!softConfig.idConfig){
+            return res.status(400).send({error: true, mensaje: "El id de configuracion es obligatorio"})
+        }
+        if(!softConfig.nameConfig){
+            return res.status(400).send({error: true, mensaje: "El nombre de la configuracion es obligatorio"})
+        }
+        if(!softConfig.customized){
+            return res.status(400).send({error: true, mensaje: "La peronalizacion actual es obligatorio"})
+        }
+        let sql = 'INSERT INTO softConfig set ?';
+        connection.query(sql, [softConfig], (err, rows) => {
+            if(err) {
+                res.json(err)
+            } else {
+                res.json({error: false, data: rows, mensaje: "Configuracion añadida"})
+            }
+        })
+    }
+}
+
+//VER TODAS LAS CONFIGURACIONES DE SOFTWARE DE COMPUTADORA
+function listaConfigSftwCompu(req, res) {
+    if(connection){
+        let sql = 'select * from softConfig';
+        connection.query(sql, (err, softConfig) => {
+            if(err){
+                res.send(err)
+            } else {
+                console.log(softConfig);
+                res.json(softConfig);
+            }
+        })
+    }
+}
+//VER TAL CONFIGURACION DE SOFTWARE DE COMPUTADORA
+function obtenerConfigSftwCompu(req, res) {
+    if(connection){
+        const { id } = req.params;
+        let sql = `SELECT * FROM softConfig WHERE idConfig = ${connection.escape(id)}`;
+        connection.query(sql, (err, softConfig) => {
+            if(err){
+                res.json(error);
+            } else {
+                let mensaje = "";
+                if(softConfig === undefined || softConfig.length === 0)
+                mensaje = "Configuracion base de software de la computadora no encontrada";
+                res.json({error: false, data: softConfig, mensaje: mensaje})
+            }
+        })
+    }
+}
+//EDITAR CONFIGURACION DE SOFTWARE DE COMPUTADORA
+function editarConfigSftwCompu(req, res){
+    if(connection){
+        const { id } = req.params;
+        const softConfig = req.body;
+        let sql = 'UPDATE softConfig set ? where idConfig = ?';
+        connection.query(sql, [softConfig, id], (err, rows) => {
+            if(err){
+                res.json(err)
+            } else {
+                let mensaje = "";
+                if(rows.changedRows === 0){
+                    mensaje = "La información es la misma"
+                } else {
+                    mensaje = "Configuracion base de software de la computadora modificada con exito"
+                }
+                res.json({error: false, data: rows, mensaje: mensaje})
+            }
+        })
+    }
+}
+//ELIMINAR CONFIGURACION DE SOFTWARE DE COMPUTADORA
+function eliminarConfigSftwCompu(req, res){
+    if(connection){
+        const { id } = req.params;
+        let sql = 'DELETE FROM softConfig WHERE idSoft = ?';
+        connection.query(sql, [id], (err, rows) => {
+            if(err){
+                res.json(err)
+            } else {
+                let mensaje = "";
+                if (rows.affectedRows === 0)
+                    mensaje = "Configuracion base de computadora no encontrada"
+                else 
+                    mensaje= "Configuracion base de software de la computadora eliminada con exito"
+                res.json({error: false, data: rows, mensaje})
+            }
+        })
+    }
+}
+
+//FIN DE FUNCIONES DE CONFIGURACION DE SOFTWARE DE COMPUTADORA
+
+
+//INICIO DE FUNCIONES DE LISTA DE SOFTWARE POR CONFIGURACION
+//AGREGAR ELEMENTO A LA LISTA DE SOFTWARE POR CONFIGURACION
+function nuevoElementSoftConfig(req, res){
+    if(connection){
+        const listSoftConfig = req.body;
+        if(!listSoftConfig.idConfig){
+            return res.status(400).send({error: true, mensaje: "El id de configuracion es obligatorio"})
+        }
+        if(!listSoftConfig.idSoftware){
+            return res.status(400).send({error: true, mensaje: "El id del software es obligatorio"})
+        }
+        let sql = 'INSERT INTO listSoftConfig set ?';
+        connection.query(sql, [listSoftConfig], (err, rows) => {
+            if(err) {
+                res.json(err)
+            } else {
+                res.json({error: false, data: rows, mensaje: "Configuracion añadida"})
+            }
+        })
+    }
+}
+//VER TODOS LOS ELEMENTOS DE LA LISTA DE SOFTWARE POR CONFIGURACION
+function listaElementSoftConfig(req, res) {
+    if(connection){
+        let sql = 'select * from listSoftConfig';
+        connection.query(sql, (err, listSoftConfig) => {
+            if(err){
+                res.send(err)
+            } else {
+                console.log(listSoftConfig);
+                res.json(listSoftConfig);
+            }
+        })
+    }
+}
+//VER TAL ELEMENTO DE LA LISTA DE SOFTWARE POR CONFIGURACION
+function obtenerElementSoftConfig(req, res) {
+    if(connection){
+        const { id } = req.params;
+        const listSoftConfig = req.body;
+        let sql = `SELECT * FROM listSoftConfig WHERE idConfig = ${connection.escape(id)} AND idSoftware = ${connection.escape(listSoftConfig)}`;
+        connection.query(sql, (err, listSoftConfig) => {
+            if(err){
+                res.json(error);
+            } else {
+                let mensaje = "";
+                if(listSoftConfig === undefined || listSoftConfig.length === 0)
+                mensaje = "Software de la computadora no encontrada en la configuracion";
+                res.json({error: false, data: listSoftConfig, mensaje: mensaje})
+            }
+        })
+    }
+}
+//EDITAR ELEMENTO DE LA LISTA DE SOFTWARE POR CONFIGURACION
+function editarElementSoftConfig(req, res){
+    if(connection){
+        const { id } = req.params;
+        const listSoftConfig = req.body;
+        let sql = 'UPDATE listSoftConfig set ? where idConfig = ? AND idSoftware = ?';
+        connection.query(sql, [listSoftConfig, id, listSoftConfig], (err, rows) => {
+            if(err){
+                res.json(err)
+            } else {
+                let mensaje = "";
+                if(rows.changedRows === 0){
+                    mensaje = "La información es la misma"
+                } else {
+                    mensaje = "Software de la computadora modificada con exito"
+                }
+                res.json({error: false, data: rows, mensaje: mensaje})
+            }
+        })
+    }
+}
+//ELIMINAR ELEMENTO DE LA LISTA DE SOFTWARE POR CONFIGURACION
+function eliminarElementSoftConfig(req, res){
+    if(connection){
+        const { id } = req.params;
+        const listSoftConfig = req.body;
+        let sql = 'DELETE FROM listSoftConfig WHERE idSoft = ? AND idSoftware = ?';
+        connection.query(sql, [id, listSoftConfig], (err, rows) => {
+            if(err){
+                res.json(err)
+            } else {
+                let mensaje = "";
+                if (rows.affectedRows === 0)
+                    mensaje = "Configuracion de software de computadora no encontrada"
+                else 
+                    mensaje= "Configuracion de software de la computadora eliminada con exito"
+                res.json({error: false, data: rows, mensaje})
+            }
+        })
+    }
+}
+
+//FIN DE FUNCIONES DE LISTA DE SOFTWARE POR CONFIGURACION
+
+
+//INICIO DE FUNCIONES DE SOFTWARE DE COMPUTADORA
+//AGREGAR SOFTWARE DE COMPUTADORA
+function nuevaSftwBaseComputadora(req, res){
+    if(connection){
+        const computerSoft = req.body;
+
+        if(!computerSoft.idSoft){
+            return res.status(400).send({error: true, mensaje: "El id de software es obligatorio"})
+        }
+        if(!computerSoft.sistemaOperativo){
+            return res.status(400).send({error: true, mensaje: "El sistema operativo usado es obligatorio"})
+        }
+        if(!computerSoft.BIOSname){
+            return res.status(400).send({error: true, mensaje: "El tipo de BIOS es obligatorio"})
+        }
+        if(!computerSoft.BIOSverson){
+            return res.status(400).send({error: true, mensaje: "La version de BIOS es obligatorio"})
+        }
+        if(!computerSoft.Navegador){
+            return res.status(400).send({error: true, mensaje: "El navegador usado es obligatorio"})
+        }
+        if(!computerSoft.deepFreze){
+            return res.status(400).send({error: true, mensaje: "El estado de freezeo actual es obligatorio"})
+        }
+        if(!computerSoft.idConfig){
+            return res.status(400).send({error: true, mensaje: "El id de configuracion es obligatorio"})
+        }
+        let sql = 'INSERT INTO computerSoft set ?';
+        connection.query(sql, [computerSoft], (err, rows) => {
+            if(err) {
+                res.json(err)
+            } else {
+                res.json({error: false, data: rows, mensaje: "Componentes añadidos"})
+            }
+        })
+    }
+}
+//VER TODOS LOS SOFTWARE DE COMPUTADORA
+function listaSftwBaseComputadora(req, res) {
+    if(connection){
+        let sql = 'select * from computerSoft';
+        connection.query(sql, (err, computerSoft) => {
+            if(err){
+                res.send(err)
+            } else {
+                console.log(computerSoft);
+                res.json(computerSoft);
+            }
+        })
+    }
+}
+//VER TAL SOFTWARE DE COMPUTADORA
+function obtenerSftwBaseComputadora(req, res) {
+    if(connection){
+        const { id } = req.params;
+        let sql = `SELECT * FROM computerSoft WHERE idSoft = ${connection.escape(id)}`;
+        connection.query(sql, (err, computerSoft) => {
+            if(err){
+                res.json(error);
+            } else {
+                let mensaje = "";
+                if(computerSoft === undefined || computerSoft.length === 0)
+                mensaje = "Configuracion base de computadora no encontrada";
+                res.json({error: false, data: computerSoft, mensaje: mensaje})
+            }
+        })
+    }
+}
+//EDITAR SOFTWARE DE COMPUTADORA
+function editarSftwBaseComputadora(req, res){
+    if(connection){
+        const { id } = req.params;
+        const computerSoft = req.body;
+        let sql = 'UPDATE computerSoft set ? where idSoft = ?';
+        connection.query(sql, [computerSoft, id], (err, rows) => {
+            if(err){
+                res.json(err)
+            } else {
+                let mensaje = "";
+                if(rows.changedRows === 0){
+                    mensaje = "La información es la misma"
+                } else {
+                    mensaje = "Configuracion base de computadora modificada con exito"
+                }
+                res.json({error: false, data: rows, mensaje: mensaje})
+            }
+        })
+    }
+}
+//ELIMINAR SOFTWARE DE COMPUTADORA
+function eliminarSftwBaseComputadora(req, res){
+    if(connection){
+        const { id } = req.params;
+        let sql = 'DELETE FROM computerSoft WHERE idSoft = ?';
+        connection.query(sql, [id], (err, rows) => {
+            if(err){
+                res.json(err)
+            } else {
+                let mensaje = "";
+                if (rows.affectedRows === 0)
+                    mensaje = "Configuracion base de computadora no encontrada"
+                else 
+                    mensaje= "Configuracion base de computadora eliminada con exito"
+                res.json({error: false, data: rows, mensaje})
+            }
+        })
+    }
+}
+
+//FIN DE FUNCIONES DE SOFTWARE DE COMPUTADORA
+
+
+//INICIO DE FUNCIONES DE COMPUTADORA
+//AGREGAR COMPUTADORA
+function nuevaComputadora(req, res){
+    if(connection){
+        const computer = req.body;
+
+        if(!computer.idCompu){
+            return res.status(400).send({error: true, mensaje: "El id de computadora es obligatorio"})
+        }
+        if(!computer.addressMAC){
+            return res.status(400).send({error: true, mensaje: "La dirreccion MAC obligatoria"})
+        }
+        if(!computer.edificio){
+            return res.status(400).send({error: true, mensaje: "El edificio es obligatorio"})
+        }
+        if(!computer.aulaNum){
+            return res.status(400).send({error: true, mensaje: "El aula es obligatoria"})
+        }
+        if(!computer.razonUso){
+            return res.status(400).send({error: true, mensaje: "La razon de uso es obligatoria"})
+        }
+        if(!computer.estatusUso){
+            return res.status(400).send({error: true, mensaje: "El estatus de uso es obligatorio"})
+        }
+        if(!computer.softwareEspecializado){
+            return res.status(400).send({error: true, mensaje: "El software espacializado sera usado es obligatorio"})
+        }
+        if(!computer.idHard){
+            return res.status(400).send({error: true, mensaje: "El listado de hardware es obligatorio"})
+        }
+        if(!computer.idSoft){
+            return res.status(400).send({error: true, mensaje: "El listado de software es obligatorio"})
+        }
+        let sql = 'INSERT INTO computer set ?';
+        connection.query(sql, [computer], (err, rows) => {
+            if(err) {
+                res.json(err)
+            } else {
+                res.json({error: false, data: rows, mensaje: "Computadora añadida"})
+            }
+        })
+    }
+}
+//VER TODAS LAS COMPUTADORA
+function listaComputadoras(req, res) {
+    if(connection){
+        let sql = 'select * from computer';
+        connection.query(sql, (err, computer) => {
+            if(err){
+                res.send(err)
+            } else {
+                console.log(computer);
+                res.json(computer);
+            }
+        })
+    }
+}
+//VER TAL COMPUTADORA
+function obtenerComputadora(req, res) {
+    if(connection){
+        const { id } = req.params;
+        let sql = `SELECT * FROM computer WHERE idCompu = ${connection.escape(id)}`;
+        connection.query(sql, (err, computer) => {
+            if(err){
+                res.json(error);
+            } else {
+                let mensaje = "";
+                if(computer === undefined || computer.length === 0)
+                mensaje = "Computadora no encontrada";
+                res.json({error: false, data: computer, mensaje: mensaje})
+            }
+        })
+    }
+}
+//EDITAR COMPUTADORA
+function editarComputadora(req, res){
+    if(connection){
+        const { id } = req.params;
+        const computer = req.body;
+        let sql = 'UPDATE computer set ? where idCompu = ?';
+        connection.query(sql, [computer, id], (err, rows) => {
+            if(err){
+                res.json(err)
+            } else {
+                let mensaje = "";
+                if(rows.changedRows === 0){
+                    mensaje = "La información es la misma"
+                } else {
+                    mensaje = "Computadora modificada con exito"
+                }
+                res.json({error: false, data: rows, mensaje: mensaje})
+            }
+        })
+    }
+}
+//ELIMINAR COMPUTADORA
+function eliminarComputadora(req, res){
+    if(connection){
+        const { id } = req.params;
+        let sql = 'DELETE FROM computer WHERE idCompu = ?';
+        connection.query(sql, [id], (err, rows) => {
+            if(err){
+                res.json(err)
+            } else {
+                let mensaje = "";
+                if (rows.affectedRows === 0)
+                    mensaje = "Computadora no encontrada"
+                else 
+                    mensaje= "Computadora eliminada con exito"
+                res.json({error: false, data: rows, mensaje})
+            }
+        })
+    }
+}
+
+//FIN DE FUNCIONES DE COMPUTADORA
+
+
+//INICIO DE FUNCIONES DE DISPOSITIVOS REDES
+//AGREGAR DISPOSITIVO RED
+function nuevoDispositivoRed(req, res){
+    if(connection){
+        const NetworkDevices = req.body;
+        if(!NetworkDevices.deviceID){
+            return res.status(400).send({error: true, mensaje: "El id del dispositivo de red es obligatorio"})
+        }
+        if(!NetworkDevices.idNetwork){
+            return res.status(400).send({error: true, mensaje: "El id de la red es obligatorio"})
+        }
+        if(!NetworkDevices.networkType){
+            return res.status(400).send({error: true, mensaje: "El tipo de red es obligatorio"})
+        }
+        if(!NetworkDevices.exposure){
+            return res.status(400).send({error: true, mensaje: "El tipo de exposicion al ambiente es obligatorio"})
+        }
+        if(!NetworkDevices.edificio){
+            return res.status(400).send({error: true, mensaje: "El edificio de ubicacion es obligatorio"})
+        }
+        if(!NetworkDevices.aulaNum){
+            return res.status(400).send({error: true, mensaje: "El aula de ubicacion es obligatoria"})
+        }
+        let sql = 'INSERT INTO NetworkDevices set ?';
+        connection.query(sql, [NetworkDevices], (err, rows) => {
+            if(err) {
+                res.json(err)
+            } else {
+                res.json({error: false, data: rows, mensaje: "Dispositivo de res añadido"})
+            }
+        })
+    }
+}
+//VER TODOS LOS DISPOSITIVOS REDES
+function listaDispositivosRed(req, res) {
+    if(connection){
+        let sql = 'select * from NetworkDevices';
+        connection.query(sql, (err, NetworkDevices) => {
+            if(err){
+                res.send(err)
+            } else {
+                console.log(NetworkDevices);
+                res.json(NetworkDevices);
+            }
+        })
+    }
+}
+//VER TAL DISPOSITIVO RED
+function obtenerDispositivoRed(req, res) {
+    if(connection){
+        const { id } = req.params;
+        let sql = `SELECT * FROM NetworkDevices WHERE deviceID = ${connection.escape(id)}`;
+        connection.query(sql, (err, NetworkDevices) => {
+            if(err){
+                res.json(error);
+            } else {
+                let mensaje = "";
+                if(NetworkDevices === undefined || NetworkDevices.length === 0)
+                mensaje = "Dispositivo de red no encontrada";
+                res.json({error: false, data: NetworkDevices, mensaje: mensaje})
+            }
+        })
+    }
+}
+//EDITAR DISPOSITIVO RED
+function editarDispositivoRed(req, res){
+    if(connection){
+        const { id } = req.params;
+        const NetworkDevices = req.body;
+        let sql = 'UPDATE NetworkDevices set ? where deviceID = ?';
+        connection.query(sql, [NetworkDevices, id], (err, rows) => {
+            if(err){
+                res.json(err)
+            } else {
+                let mensaje = "";
+                if(rows.changedRows === 0){
+                    mensaje = "La información es la misma"
+                } else {
+                    mensaje = "Dispositivo de red con exito"
+                }
+                res.json({error: false, data: rows, mensaje: mensaje})
+            }
+        })
+    }
+}
+//ELIMINAR DISPOSITIVO RED
+function eliminarDispositivoRed(req, res){
+    if(connection){
+        const { id } = req.params;
+        let sql = 'DELETE FROM NetworkDevices WHERE deviceID = ?';
+        connection.query(sql, [id], (err, rows) => {
+            if(err){
+                res.json(err)
+            } else {
+                let mensaje = "";
+                if (rows.affectedRows === 0)
+                    mensaje = "Dispositivo de red no encontrado"
+                else 
+                    mensaje= "Dispositivo de red eliminado con exito"
+                res.json({error: false, data: rows, mensaje})
+            }
+        })
+    }
+}
+
+//FIN DE FUNCIONES DE DISPOSITIVO RED
+
+
+//INICIO DE FUNCIONES DE REDES
+//AGREGAR RED
+function nuevaRed(req, res){
+    if(connection){
+        const Network = req.body;
+        if(!Network.idNetwork){
+            return res.status(400).send({error: true, mensaje: "El id de red es obligatorio"})
+        }
+        if(!Network.networkName){
+            return res.status(400).send({error: true, mensaje: "El nombre de la red es obligatorio"})
+        }
+        if(!Network.networkType){
+            return res.status(400).send({error: true, mensaje: "El tipo de red es obligatorio"})
+        }
+        if(!Network.netowrkSpeedMB){
+            return res.status(400).send({error: true, mensaje: "La velocidad es obligatoria"})
+        }
+        let sql = 'INSERT INTO Network set ?';
+        connection.query(sql, [Network], (err, rows) => {
+            if(err) {
+                res.json(err)
+            } else {
+                res.json({error: false, data: rows, mensaje: "Red añadida"})
+            }
+        })
+    }
+}
+//VER TODAS LAS REDES
+function listaRedes(req, res) {
+    if(connection){
+        let sql = 'select * from Network';
+        connection.query(sql, (err, Network) => {
+            if(err){
+                res.send(err)
+            } else {
+                console.log(Network);
+                res.json(Network);
+            }
+        })
+    }
+}
+//VER TAL RED
+function obtenerRed(req, res) {
+    if(connection){
+        const { id } = req.params;
+        let sql = `SELECT * FROM Network WHERE idNetwork = ${connection.escape(id)}`;
+        connection.query(sql, (err, Network) => {
+            if(err){
+                res.json(error);
+            } else {
+                let mensaje = "";
+                if(Network === undefined || Network.length === 0)
+                mensaje = "Red no encontrada";
+                res.json({error: false, data: Network, mensaje: mensaje})
+            }
+        })
+    }
+}
+//EDITAR RED
+function editarRed(req, res){
+    if(connection){
+        const { id } = req.params;
+        const Network = req.body;
+        let sql = 'UPDATE Network set ? where idNetwork = ?';
+        connection.query(sql, [Network, id], (err, rows) => {
+            if(err){
+                res.json(err)
+            } else {
+                let mensaje = "";
+                if(rows.changedRows === 0){
+                    mensaje = "La información es la misma"
+                } else {
+                    mensaje = "Red con exito"
+                }
+                res.json({error: false, data: rows, mensaje: mensaje})
+            }
+        })
+    }
+}
+//ELIMINAR RED
+function eliminarRed(req, res){
+    if(connection){
+        const { id } = req.params;
+        let sql = 'DELETE FROM Network WHERE idNetwork = ?';
+        connection.query(sql, [id], (err, rows) => {
+            if(err){
+                res.json(err)
+            } else {
+                let mensaje = "";
+                if (rows.affectedRows === 0)
+                    mensaje = "Computadora no encontrada"
+                else 
+                    mensaje= "Computadora eliminada con exito"
+                res.json({error: false, data: rows, mensaje})
+            }
+        })
+    }
+}
+
+//FIN DE FUNCIONES DE RED
+
+
+//INICIO DE FUNCIONES DE TECNICOS
+//AGREGAR TECNICO
+function nuevoTecnico(req, res){
+    if(connection){
+        const Tecnicos = req.body;
+        if(!Tecnicos.nControl){
+            return res.status(400).send({error: true, mensaje: "El numero de control es obligatorio"})
+        }
+        if(!Tecnicos.primerNombre){
+            return res.status(400).send({error: true, mensaje: "El primer nombre obligatorio"})
+        }
+        if(!Tecnicos.segundoNombre){
+            return res.status(400).send({error: true, mensaje: "El segundo nombre obligatorio"})
+        }
+        if(!Tecnicos.primerApellido){
+            return res.status(400).send({error: true, mensaje: "El primer apellido obligatorio"})
+        }
+        if(!Tecnicos.segundoApellido){
+            return res.status(400).send({error: true, mensaje: "El segundo apellido obligatorio"})
+        }
+        if(!Tecnicos.passkey){
+            return res.status(400).send({error: true, mensaje: "La contraseña es obligatoria"})
+        }
+        if(!Tecnicos.numIncidentesActuales){
+            return res.status(400).send({error: true, mensaje: "El numero de incidentes actuales obligatorio"})
+        }
+        if(!Tecnicos.numIncidentesResueltos){
+            return res.status(400).send({error: true, mensaje: "El numero de incidentes resueltos obligatorio"})
+        }
+        if(!Tecnicos.experienceLvl){
+            return res.status(400).send({error: true, mensaje: "El nivel de experiencia es obligatorio"})
+        }
+        let sql = 'INSERT INTO Tecnicos set ?';
+        connection.query(sql, [Tecnicos], (err, rows) => {
+            if(err) {
+                res.json(err)
+            } else {
+                res.json({error: false, data: rows, mensaje: "Tecnico añadido"})
+            }
+        })
+    }
+}
+//VER TODOS LOS TECNICOS
+function listaTecnicos(req, res) {
+    if(connection){
+        let sql = 'select * from Tecnicos';
+        connection.query(sql, (err, Tecnicos) => {
+            if(err){
+                res.send(err)
+            } else {
+                console.log(Tecnicos);
+                res.json(Tecnicos);
+            }
+        })
+    }
+}
+//VER TAL TECNICO
+function obtenerTecnico(req, res) {
+    if(connection){
+        const { id } = req.params;
+        let sql = `SELECT * FROM Tecnicos WHERE nControl = ${connection.escape(id)}`;
+        connection.query(sql, (err, Tecnicos) => {
+            if(err){
+                res.json(error);
+            } else {
+                let mensaje = "";
+                if(Tecnicos === undefined || Tecnicos.length === 0)
+                mensaje = "Tecnico no encontrado";
+                res.json({error: false, data: Tecnicos, mensaje: mensaje})
+            }
+        })
+    }
+}
+//EDITAR TECNICO
+function editarTecnico(req, res){
+    if(connection){
+        const { id } = req.params;
+        const Tecnicos = req.body;
+        let sql = 'UPDATE Tecnicos set ? where nControl = ?';
+        connection.query(sql, [Tecnicos, id], (err, rows) => {
+            if(err){
+                res.json(err)
+            } else {
+                let mensaje = "";
+                if(rows.changedRows === 0){
+                    mensaje = "La información es la misma"
+                } else {
+                    mensaje = "Tecnico editado con exito"
+                }
+                res.json({error: false, data: rows, mensaje: mensaje})
+            }
+        })
+    }
+}
+//ELIMINAR TECNICO
+function eliminarTecnico(req, res){
+    if(connection){
+        const { id } = req.params;
+        let sql = 'DELETE FROM Tecnicos WHERE nControl = ?';
+        connection.query(sql, [id], (err, rows) => {
+            if(err){
+                res.json(err)
+            } else {
+                let mensaje = "";
+                if (rows.affectedRows === 0)
+                    mensaje = "Tecnico no encontrado"
+                else 
+                    mensaje= "Tecnico eliminado con exito"
+                res.json({error: false, data: rows, mensaje})
+            }
+        })
+    }
+}
+
+//FIN DE FUNCIONES DE TECNICOS
+
+
+//INICIO DE FUNCIONES DE OTROS DISPOSITIVOS
+//AGREGAR OTRO DISPOSITIVO
+function nuevoOtroDispositivo(req, res){
+    if(connection){
+        const otrosDispositivos = req.body;
+        if(!otrosDispositivos.idDispositivo){
+            return res.status(400).send({error: true, mensaje: "El id de dispositivo es obligatorio"})
+        }
+        if(!otrosDispositivos.nombre){
+            return res.status(400).send({error: true, mensaje: "El nombre obligatorio"})
+        }
+        if(!otrosDispositivos.idDocumentacion){
+            return res.status(400).send({error: true, mensaje: "El id de la documentacion obligatorio"})
+        }
+        if(!otrosDispositivos.tiempoVida){
+            return res.status(400).send({error: true, mensaje: "El tiempo de vida obligatorio"})
+        }
+        if(!otrosDispositivos.mantenimientoMinimo){
+            return res.status(400).send({error: true, mensaje: "El tiempo de mantenimeinto minimo obligatorio"})
+        }
+        if(!otrosDispositivos.mantenimientoMaximo){
+            return res.status(400).send({error: true, mensaje: "El tiempo de mantenimeinto maximo obligatorio"})
+        }
+        if(!otrosDispositivos.ultimoMantenimiento){
+            return res.status(400).send({error: true, mensaje: "El tiempo del ultimo mantenimeinto es obligatorio"})
+        }
+        if(!otrosDispositivos.aulaNum){
+            return res.status(400).send({error: true, mensaje: "El aula donde se instalara es obligatorio"})
+        }
+        let sql = 'INSERT INTO otrosDispositivos set ?';
+        connection.query(sql, [otrosDispositivos], (err, rows) => {
+            if(err) {
+                res.json(err)
+            } else {
+                res.json({error: false, data: rows, mensaje: "Nuevo dispositivo añadido"})
+            }
+        })
+    }
+}
+//VER TODOS LOS OTROS DISPOSITIVOS
+function listaOtrosDispositivos(req, res) {
+    if(connection){
+        let sql = 'select * from otrosDispositivos';
+        connection.query(sql, (err, otrosDispositivos) => {
+            if(err){
+                res.send(err)
+            } else {
+                console.log(otrosDispositivos);
+                res.json(otrosDispositivos);
+            }
+        })
+    }
+}
+//VER TAL OTRO DISPOSITIVO
+function obtenerOtroDispositivo(req, res) {
+    if(connection){
+        const { id } = req.params;
+        let sql = `SELECT * FROM otrosDispositivos WHERE idDispositivo = ${connection.escape(id)}`;
+        connection.query(sql, (err, otrosDispositivos) => {
+            if(err){
+                res.json(error);
+            } else {
+                let mensaje = "";
+                if(otrosDispositivos === undefined || otrosDispositivos.length === 0)
+                mensaje = "Otro Dispositivo no encontrado";
+                res.json({error: false, data: otrosDispositivos, mensaje: mensaje})
+            }
+        })
+    }
+}
+//EDITAR TECNICO
+function editarOtroDispositivo(req, res){
+    if(connection){
+        const { id } = req.params;
+        const otrosDispositivos = req.body;
+        let sql = 'UPDATE otrosDispositivos set ? where idDispositivo = ?';
+        connection.query(sql, [otrosDispositivos, id], (err, rows) => {
+            if(err){
+                res.json(err)
+            } else {
+                let mensaje = "";
+                if(rows.changedRows === 0){
+                    mensaje = "La información es la misma"
+                } else {
+                    mensaje = "Otro dispositivo editado con exito"
+                }
+                res.json({error: false, data: rows, mensaje: mensaje})
+            }
+        })
+    }
+}
+//ELIMINAR TECNICO
+function eliminarOtroDispositivo(req, res){
+    if(connection){
+        const { id } = req.params;
+        let sql = 'DELETE FROM otrosDispositivos WHERE idDispositivo = ?';
+        connection.query(sql, [id], (err, rows) => {
+            if(err){
+                res.json(err)
+            } else {
+                let mensaje = "";
+                if (rows.affectedRows === 0)
+                    mensaje = "Otro dispositivo no encontrado"
+                else 
+                    mensaje= "Otro Dispositvio eliminado con exito"
+                res.json({error: false, data: rows, mensaje})
+            }
+        })
+    }
+}
+
+//FIN DE FUNCIONES DE TECNICOS
+
+
 //EXPORTACION DE CONTROLADORES
 
 module.exports = {
@@ -987,5 +1856,45 @@ module.exports = {
     listaComponentesComputadora,
     obtenerComponenteComputadora,
     editarComponenteComputadora,
-    eliminarComponenteComputadora
+    eliminarComponenteComputadora,
+    nuevaSftwBaseComputadora,
+    listaSftwBaseComputadora,
+    obtenerSftwBaseComputadora,
+    editarSftwBaseComputadora,
+    eliminarSftwBaseComputadora,
+    nuevaConfigSftwCompu,
+    listaConfigSftwCompu,
+    obtenerConfigSftwCompu,
+    editarConfigSftwCompu,
+    eliminarConfigSftwCompu,
+    nuevoElementSoftConfig,
+    listaElementSoftConfig,
+    obtenerElementSoftConfig,
+    editarElementSoftConfig,
+    eliminarElementSoftConfig,
+    nuevaComputadora,
+    listaComputadoras,
+    obtenerComputadora,
+    editarComputadora,
+    eliminarComputadora,
+    nuevaRed,
+    listaRedes,
+    obtenerRed,
+    editarRed,
+    eliminarRed,
+    nuevoDispositivoRed,
+    listaDispositivosRed,
+    obtenerDispositivoRed,
+    editarDispositivoRed,
+    eliminarDispositivoRed,
+    nuevoTecnico,
+    listaTecnicos,
+    obtenerTecnico,
+    editarTecnico,
+    eliminarTecnico,
+    nuevoOtroDispositivo,
+    listaOtrosDispositivos,
+    obtenerOtroDispositivo,
+    editarOtroDispositivo,
+    eliminarOtroDispositivo
 }

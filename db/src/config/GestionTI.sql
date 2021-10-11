@@ -1,15 +1,18 @@
 create database GestionTI;
 use GestionTI;
+
 /*Lista de edificios*/
 create table edificios(
 idEdificio varchar(6) primary key
 );
+
 /*lista de aulas o cubiculos por edificio*/
 create table aula(
 aulaNum int primary key,
 idEdificio varchar(6),
 foreign key (idEdificio) references edificios(idEdificio)
 );
+
 /*lista de documentación*/
 create table documentacion(
 idDocumentacion int primary key,
@@ -20,6 +23,7 @@ garantia int
 /*0=NO 1=SI*/,
 archivoGarantia varchar(12)
 );
+
 /*lista de software*/
 create table software(
 idSoftware int primary key,
@@ -30,6 +34,7 @@ sistemaOperativo int,
 /*1=Windows, 2=MacOs, 3=Linux*/
 pesoMb varchar(7)
 );
+
 /*Lista de licncias por software*/
 create table licencia(
 idLicencia int primary key,
@@ -39,11 +44,13 @@ ocuped int
 /*0=NO 1=SI*/,
 foreign key (idSoftware) references software(idSoftware)
 );
+
 /*categorias de inventario*/
 create table categoriaInventario(
 idCategoria int primary key,
 nameCategoria varchar(36)
 );
+
 /*lista de inventario*/
 create table inventario(
 idProduto int primary key,
@@ -56,6 +63,7 @@ capacidadMB int,
 tipoPuerto varchar(36),
 foreign key (idCategoria) references categoriaInventario(idCategoria)
 );
+
 /*Lista de hardware de la computadora*/
 create table computerHard(
 idHard int primary key,
@@ -70,6 +78,7 @@ tarjetaMadre varchar(60),
 ventilador int
 /*0-No tiene, 1-si tiene*/
 );
+
 /*Lista de componentes*/
 create table computerComponentList(
 idHard int,
@@ -77,6 +86,23 @@ idProduto int,
 foreign key (idHard) references computerHard(idHard),
 foreign key (idProduto) references inventario(idProduto)
 );
+
+/*Lista de configuraciones de la computadora*/
+create table softConfig(
+idConfig int primary key,
+nameConfig varchar(24),
+customized int
+/*0=NO 1=SI*/
+);
+
+/*Lista de software de las configuraciones de la computadora*/
+create table listSoftConfig(
+idConfig int,
+idSoftware int,
+foreign key (idConfig) references softConfig(idConfig),
+foreign key (idSoftware) references software(idSoftware)
+);
+
 /*Lista de software de la computadora*/
 create table computerSoft(
 idSoft int primary key,
@@ -91,22 +117,7 @@ deepFreze int
 idConfig int,
 foreign key (idConfig) references softConfig(idConfig)
 );
-/*Lista de configuraciones de la computadora*/
-create table softConfig(
-idConfig int primary key,
-nameConfig varchar(24),
-idSoftware int,
-customized int
-/*0=NO 1=SI*/,
-foreign key (idSoftware) references software(idSoftware)
-);
-/*Lista de software de las configuraciones*/
-create table softList(
-idConfig int,
-idSoftware int,
-foreign key (idSoftware) references software(idSoftware),
-foreign key (idConfig) references softConfig(idConfig)
-);
+
 /*Lista de computadoras*/
 create table computer(
 idCompu int primary key,
@@ -124,6 +135,7 @@ foreign key (idHard) references computerHard(idHard),
 foreign key (idSoft) references computerSoft(idSoft),
 foreign key (aulaNum) references aula(aulaNum)
 );
+
 /*lista de redes*/
 create table Network(
 idNetwork int primary key,
@@ -132,6 +144,7 @@ networkType int
 /*0=alambrica 1=inalambrica*/,
 netowrkSpeedMB varchar(7)
 );
+
 /*lista de dispositivos de red*/
 create table NetworkDevices(
 deviceID int primary key,
@@ -146,6 +159,7 @@ foreign key (idNetwork) references Network(idNetwork),
 foreign key (idEdificio) references edificios(idEdificio),
 foreign key (aulaNum) references aula(aulaNum)
 );
+
 /*lista de tecnicos*/
 create table Tecnicos(
 nControl varchar(10) primary key,
@@ -158,6 +172,7 @@ numIncidentesActuales  int,
 numIncidentesResueltos int,
 experienceLvl int
 );
+
 /*lista de otros dispositivos*/
 create table otrosDispositivos(
 idDispositivo varchar(12) primary key,
@@ -166,6 +181,7 @@ idDocumentacion int,
 tiempoVida time,
 mantenimientoMinimo date,
 mantenimientoMaximo date,
+ultimoMantenimiento date,
 aulaNum int,
 foreign key (aulaNum) references aula(aulaNum),
 foreign key (idDocumentacion) references documentacion(idDocumentacion)
