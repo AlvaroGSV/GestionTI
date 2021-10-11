@@ -4,29 +4,29 @@ const routes = express.Router();
 // Importar el controlador
 const Controller = require('../controllers/Controller');
 
+//EDIFICIO
 //GET
-routes.get('/autos/', Controller.listarAutos);
-routes.get('/vendedor/', Controller.listarVendedores);
-routes.get('/venta/', Controller.listarVentas);
-routes.get('/vendedor/', Controller.logIn);
-
-routes.get('/vendedor/:id', Controller.obtenerVendedor);
-routes.get('/autos/:id', Controller.obtenerAuto);
-routes.get('/venta/:id', Controller.obtenerVentaDeAuto);
-
+routes.get('/EDIFICIO/', Controller.nuevoEdificio);
+routes.get('/EDIFICIO/:id', Controller.listarEdificos);
 //POST
-routes.post('/autos/', Controller.altaAuto);
-routes.post('/vendedor/', Controller.nuevoVendedor);
-routes.post('/venta/', Controller.venta);
-
+routes.post('/EDIFICIO/', Controller.obtenerEdificio);
 //PUT
-routes.put('/autos/:id', Controller.editarAuto);
-routes.put('/vendedor/:id', Controller.editarVendedor);
-routes.put('/venta/:id', Controller.editarVenta);
-
+routes.put('/EDIFICIO/:id', Controller.editarEdificio);
 //DELETE
-routes.delete('/autos/:id', Controller.eliminarAuto);
-routes.delete('/vendedor/:id', Controller.eliminarVendedor);
+routes.delete('/EDIFICIO/:id', Controller.eliminarEdificio);
+
+
+//AULA
+//GET
+routes.get('/AULA/', Controller.nuevaAula);
+routes.get('/AULA/:id', Controller.listarAulas);
+//POST
+routes.post('/AULA/', Controller.obtenerAula);
+//PUT
+routes.put('/AULA/:id', Controller.editarAula);
+//DELETE
+routes.delete('/AULA/:id', Controller.eliminarAula);
+
 
 
 module.exports = routes;
