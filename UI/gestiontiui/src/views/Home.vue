@@ -1,21 +1,21 @@
 <template>
   <div class="home">
     <b-container fluid="md">
-      <b-row>
-        <b-col>
+      <b-row align-h="center">
+        <b-col cols="7">
           <Input
-                label="numero de control"
+                label="NUMERO DE CONTROL"
                 id="nControl"
-                placeholder="INGRESE SU NUMERO DE CONTROL"
+                placeholder= "INGRESE SU NUMERO DE CONTROL"
                 mensajeError="EL NUMERO DE CONTROL ES OBLIGATORIO"
                 maxlength="10"
               />
         </b-col>
       </b-row>
-      <b-row>
-        <b-col>
+      <b-row align-h="center">
+        <b-col cols="7">
           <Input
-                label="contrseña"
+                label="CONTRASEÑA"
                 id="passkey"
                 placeholder="INGRESE SU CONTRASEÑA"
                 mensajeError="LA CONTRASEÑA ES OBLIGATORIA"
@@ -23,9 +23,9 @@
               />
         </b-col>
       </b-row>
-      <b-row>
-        <b-col>
-          <b-button block pill variant="primary">INICIAR SESIÓN</b-button>
+      <b-row align-h="center">
+        <b-col cols="7">
+          <b-button id="btnLogIn" pill>INICIAR SESIÓN  <b-icon icon="person-bounding-box"></b-icon></b-button>
         </b-col>
       </b-row>
     </b-container>
@@ -49,5 +49,15 @@ export default {
 b-button{
   margin-bottom: 40%;
   padding-top: 40%;
+}
+#btnLogIn{
+  background-color: #00325f;
+  color:#ffffff;
+  margin-top: 2%;
+}
+#btnLogIn:hover{
+  background-color: #ffffff;;
+  color: #00325f;
+  border-color: #00325f;
 }
 </style>
