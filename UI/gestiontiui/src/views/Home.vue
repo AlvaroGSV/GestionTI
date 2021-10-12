@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <b-container fluid="md">
-      <b-row align-h="center">
+      <b-row id="renglon" align-h="center">
         <b-col cols="7">
           <Input
                 label="NUMERO DE CONTROL"
@@ -12,7 +12,7 @@
               />
         </b-col>
       </b-row>
-      <b-row align-h="center">
+      <b-row id="renglon" align-h="center">
         <b-col cols="7">
           <Input
                 label="CONTRASEÑA"
@@ -23,7 +23,7 @@
               />
         </b-col>
       </b-row>
-      <b-row align-h="center">
+      <b-row id="renglon" align-h="center">
         <b-col cols="7">
           <b-button id="btnLogIn" pill>INICIAR SESIÓN  <b-icon icon="person-bounding-box"></b-icon></b-button>
         </b-col>
@@ -59,5 +59,8 @@ b-button{
   background-color: #ffffff;;
   color: #00325f;
   border-color: #00325f;
+}
+#renglon{
+    margin-bottom: 1%;
 }
 </style>
