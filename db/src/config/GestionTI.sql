@@ -130,7 +130,7 @@ softwareEspecializado int
 /*0=NO 1=SI*/,
 idHard int,
 idSoft int,
-foreign key (idEdificio) references edificios(idEdificio),
+foreign key (edificio) references edificios(idEdificio),
 foreign key (idHard) references computerHard(idHard),
 foreign key (idSoft) references computerSoft(idSoft),
 foreign key (aulaNum) references aula(aulaNum)
@@ -156,7 +156,7 @@ exposure int
 edificio varchar(6),
 aulaNum int,
 foreign key (idNetwork) references Network(idNetwork),
-foreign key (idEdificio) references edificios(idEdificio),
+foreign key (edificio) references edificios(idEdificio),
 foreign key (aulaNum) references aula(aulaNum)
 );
 
