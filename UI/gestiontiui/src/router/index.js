@@ -1,7 +1,9 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
-import NewDocumentacion from '../views/NewDocumentacion.vue'
+import NewDocumentacion from '../views/documentacion/NewDocumentacion.vue'
+import NewCategoriaInventario from '../views/inventario/NewCategoriaInventario.vue'
+import NewProductInventario from  '../views/inventario/NewProductInventario.vue'
 
 Vue.use(VueRouter)
 
@@ -20,9 +22,19 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
   },
   {
-    path: '/NewDocumentacion',
+    path: '/Documentacion/NewDocumentacion',
     name: 'NewDocumentacion',
     component: NewDocumentacion
+  },
+  {
+    path: '/inventario/NewCategoriaInventario',
+    name: 'NewCategoriaInventario',
+    component: NewCategoriaInventario
+  },
+  {
+    path: '/inventario/NewProductInventario',
+    name: 'NewProductInventario',
+    component: NewProductInventario
   }
 ]
 

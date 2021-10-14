@@ -42,18 +42,21 @@
             </b-col>
         </b-row>
         <b-row id="renglon" align-h="center">
-        <b-col cols="7">
-          <b-button pill variant="success">GUARDAR  <b-icon icon="bookmark-plus-fill"></b-icon></b-button>
-        </b-col>
-      </b-row>
+            <b-col cols="7">
+                <b-button pill variant="success">GUARDAR  <b-icon icon="bookmark-plus-fill"></b-icon></b-button>
+            </b-col>
+        </b-row>
     </b-container>
 </div>
 </template>
 
 <script>
-import Input from '../components/Input.vue'
+import Input from '../../components/Input.vue'
 
 export default {
+    components: {
+        Input
+    },
     data(){
         return{
             manualBool: null,
