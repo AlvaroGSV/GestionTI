@@ -25,7 +25,7 @@
       </b-row>
       <b-row id="renglon" align-h="center">
         <b-col cols="7">
-          <b-button id="btnLogIn" pill>INICIAR SESIÓN  <b-icon icon="person-bounding-box"></b-icon></b-button>
+          <b-button id="btnLogIn" pill to="/MainPage">INICIAR SESIÓN  <b-icon icon="person-bounding-box"></b-icon></b-button>
         </b-col>
       </b-row>
     </b-container>
@@ -40,7 +40,6 @@ export default {
   name: 'Home',
   components: {
     Input
-    
   }
 }
 </script>

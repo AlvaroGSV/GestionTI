@@ -4,13 +4,14 @@ use GestionTI;
 /*Lista de edificios*/
 create table edificios(
 idEdificio varchar(6) primary key
+nomEdificio varchar (12)
 );
 
 /*lista de aulas o cubiculos por edificio*/
 create table aula(
 aulaNum int primary key,
-idEdificio varchar(6),
-foreign key (idEdificio) references edificios(idEdificio)
+nomEdificio varchar(12),
+foreign key (nomEdificio) references edificios(nomEdificio)
 );
 
 /*lista de documentación*/
