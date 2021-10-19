@@ -4,10 +4,10 @@
         <b-row cols="1" id="renglon" align-h="center">
             <b-col col md="12">
                 <Input 
-                label="INGRESE EL ID DE LA LICENCIA" 
+                label="INGRESE EL ID DE LA CONFIGURACION DE HARDWARE" 
                 id="idHard" 
-                placeholder="INGRESE EL ID DE LA LICENCIA" 
-                mensajeerror="EL ID DEL SOFTWARE ES OBLIGATORIO"/>
+                placeholder="INGRESE EL ID DE LA CONFIGURACION DE HARDWARE" 
+                mensajeerror="EL ID DE LA CONFIGURACION DE HARDWARE ES OBLIGATORIA"/>
             </b-col>
         </b-row> 
         <b-row cols="1" id="renglon" align-h="center">
@@ -51,8 +51,8 @@
         </b-row>
         <b-row cols="1" id="renglon" align-h="center">
             <b-col cols="12">
-                <b-button variant="success" pill to="/hardware/selectNewComponents">SIGUIENTE <b-icon icon="arrow-right-circle-fill"/></b-button>
-                <b-button id="drecha" variant="danger" pill>CANCELAR <b-icon icon="bookmark-x-fill"/></b-button>
+                <b-button variant="success" pill="">GUARDAR <b-icon icon="bookmark-plus-fill"></b-icon></b-button>
+                <b-button id="drecha" variant="danger" pill to="/MainPage">CANCELAR <b-icon icon="bookmark-x-fill"/></b-button>
             </b-col>
         </b-row>
     </b-container>

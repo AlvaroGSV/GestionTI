@@ -10,6 +10,10 @@ import AltaEdificio from '../views/infraestructura/AltaEdificio.vue'
 import AltaAula from '../views/infraestructura/AltaAula.vue'
 import newComputerHard from '../views/hardware/newComputerHard.vue'
 import selectNewComponents from '../views/hardware/selectNewComponents.vue'
+import AltaCompuSoft from '../views/software/AltaCompuSoft.vue'
+import AltaComputadora from '../views/compu/AltaComputadora.vue'
+import newTecnico from '../views/tecnicos/newTecnico.vue'
+import newOtrosDispositivos from '../views/otrosDispositivos/newOtrosDispositivos.vue'
 import MainPage from '../views/MainPage.vue'
 
 
@@ -20,14 +24,6 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Home
-  },
-  {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
   },
   {
     path: '/Documentacion/NewDocumentacion',
@@ -73,6 +69,26 @@ const routes = [
     path: '/hardware/selectNewComponents',
     name: 'selectNewComponents',
     component: selectNewComponents
+  },
+  {
+    path: '/software/compu/AltaCompuSoft',
+    name: 'AltaCompuSoft',
+    component: AltaCompuSoft
+  },
+  {
+    path: '/compu/AltaComputadora',
+    name: 'AltaComputadora',
+    component: AltaComputadora
+  },
+  {
+    path: '/tecnicos/newTecnico',
+    name: 'newTecnico',
+    component: newTecnico
+  },
+  {
+    path: '/otrosDispositivos/newOtrosDispositivos',
+    name: 'newOtrosDispositivos',
+    component: newOtrosDispositivos
   },
   {
     path: '/MainPage',

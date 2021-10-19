@@ -126,7 +126,7 @@ addressMAC varchar(12),
 edificio varchar(6),
 aulaNum int,
 razonUso varchar(60),
-estatusUso varchar(40),
+numIncidentes int,
 softwareEspecializado int
 /*0=NO 1=SI*/,
 idHard int,
@@ -183,8 +183,10 @@ tiempoVida time,
 mantenimientoMinimo date,
 mantenimientoMaximo date,
 ultimoMantenimiento date,
+edificio varchar(6),
 aulaNum int,
 foreign key (aulaNum) references aula(aulaNum),
+foreign key (edificio) references edificios(idEdificio),
 foreign key (idDocumentacion) references documentacion(idDocumentacion)
 );
 

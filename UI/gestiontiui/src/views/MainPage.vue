@@ -42,17 +42,14 @@
             <b-col>
                 <b-button variant="success" pill to="/hardware/newComputerHard">Hardware de computadora <b-icon icon="bookmark-plus-fill"></b-icon></b-button>
             </b-col>
-            <b-col>
-                <b-button variant="success" pill to="/hardware/newComputerComponent">Lista de componentes de la computadora <b-icon icon="bookmark-plus-fill"></b-icon></b-button>
-            </b-col>
         </b-row>
         <b-row>
             <h5>Software de computadora</h5>
             <b-col>
-                <b-button variant="success" pill disabled>Software de computadora <b-icon icon="bookmark-plus-fill"></b-icon></b-button>
+                <b-button variant="success" pill to="/software/compu/AltaCompuSoft">Software de computadora <b-icon icon="bookmark-plus-fill"></b-icon></b-button>
             </b-col>
             <b-col>
-                <b-button variant="success" pill disabled>Computadora <b-icon icon="bookmark-plus-fill"></b-icon></b-button>
+                <b-button variant="success" pill to="/compu/AltaComputadora">Computadora <b-icon icon="bookmark-plus-fill"></b-icon></b-button>
             </b-col>
         </b-row>
         <b-row>
@@ -67,13 +64,13 @@
         <b-row>
             <h5>Tecnicos</h5>
             <b-col>
-                <b-button variant="success" pill disabled>Tecnicos <b-icon icon="bookmark-plus-fill"></b-icon></b-button>
+                <b-button variant="success" pill to="/tecnicos/newTecnico">Tecnicos <b-icon icon="bookmark-plus-fill"></b-icon></b-button>
             </b-col>
         </b-row>
         <b-row>
             <h5>Otros dispositivos</h5>
             <b-col>
-                <b-button variant="success" pill disabled>Otros dispositivos <b-icon icon="bookmark-plus-fill"></b-icon></b-button>
+                <b-button variant="success" pill to="/otrosDispositivos/newOtrosDispositivos">Otros dispositivos <b-icon icon="bookmark-plus-fill"></b-icon></b-button>
             </b-col>
         </b-row>
     </b-container>
