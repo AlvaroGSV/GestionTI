@@ -14,6 +14,7 @@ import AltaCompuSoft from '../views/software/AltaCompuSoft.vue'
 import AltaComputadora from '../views/compu/AltaComputadora.vue'
 import newTecnico from '../views/tecnicos/newTecnico.vue'
 import newOtrosDispositivos from '../views/otrosDispositivos/newOtrosDispositivos.vue'
+import AltaSoftConfig from '../views/software/AltaSoftConfig.vue'
 import MainPage from '../views/MainPage.vue'
 
 
@@ -89,6 +90,11 @@ const routes = [
     path: '/otrosDispositivos/newOtrosDispositivos',
     name: 'newOtrosDispositivos',
     component: newOtrosDispositivos
+  },
+  {
+    path: '/software/config/AltaSoftConfig',
+    name: 'AltaSoftConfig',
+    component: AltaSoftConfig
   },
   {
     path: '/MainPage',

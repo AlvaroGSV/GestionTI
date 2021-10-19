@@ -26,29 +26,29 @@
         <b-row cols="1" id="renglon" align-h="center">
             <b-col cols="3">
                 <h6>¿CUENTA CON DOCUMENTACION?</h6>
-                <b-form-select v-model="documentacion" :options="opDocumentacion"/>
+                <FormSelect :vModel="documentacion" :options="opDocumentacion"/>
             </b-col>
             <b-col cols="3">
                 <h6>¿ESTA REGISTRADA LA DOCUMENTACION?</h6>
-                <b-form-select v-model="documentacionRegistro" :options="opDocumentacionRegistro"/>
+                <FormSelect :vModel="documentacionRegistro" :options="opDocumentacionRegistro"/>
             </b-col>
             <b-col cols="3">
                 <h6>BUSQUE LA DOCUMENTACION</h6>
-                <b-form-select v-model="idDocumentacion" :options="opidDocumentacion"/>
+                <FormSelect :vModel="idDocumentacion" :options="opidDocumentacion"/>
             </b-col>
             <b-col cols="3">
                 <h6>AGREGE LA DOCUMENTACION</h6>
-                <Button text="NUEVA DOCUMENTACION  " icon="bookmark-plus-fill" variant="success" :disabled="documentacionRegistro"/>
+                <Button text="NUEVA DOCUMENTACION " icon="bookmark-plus-fill" variant="success" :disabled="documentacionRegistro"/>
             </b-col>
         </b-row>
         <b-row cols="1" id="renglon" align-h="center">
             <b-col col md="6">
                 <h6>EN QUE EDIFICIO ESTA INSTALADA</h6>
-                <b-form-select v-model="edificio" :options="opEdificio"/>
+                <FormSelect :vModel="edificio" :options="opEdificio"/>
             </b-col>
             <b-col col md="6">
                 <h6>EN QUE AULA O CUBICULO ESTA INSTALADA</h6>
-                <b-form-select v-model="aula" :options="opAula"/>
+                <FormSelect :vModel="aula" :options="opAula"/>
             </b-col>
         </b-row>
         <b-row cols="1" id="renglon" align-h="center">
@@ -82,10 +82,12 @@
 <script>
 import Input from '../../components/Input.vue'
 import Button from '../../components/Button.vue'
+import FormSelect from '../../components/FormSelect.vue'
 export default {
     components: {
         Input,
-        Button
+        Button,
+        FormSelect
     },
     data(){
         return{

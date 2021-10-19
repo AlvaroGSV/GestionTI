@@ -21,7 +21,7 @@
                 label="INGRESE EL NOMBRE DE LA BIOS" 
                 id="BIOSname" 
                 placeholder="-INGRESE EL NOMBRE DE LA BIOS-" 
-                mensajeerror="SELECCIONAR EL NOMBRE DE LA BIOS ES OBLIGATORIO"/>
+                mensajeerror="EL NOMBRE DE LA BIOS ES OBLIGATORIO"/>
             </b-col>
             <b-col col md="6">
                 <Input 
@@ -29,7 +29,7 @@
                 id="BIOSverson" 
                 type="number"
                 placeholder="INGRESE LA VERSION DE LA BIOS" 
-                mensajeerror="INGRESAR LA VERSION DE LA BIOS ES OBLIGATORIO"/>
+                mensajeerror="LA VERSION DE LA BIOS ES OBLIGATORIO"/>
             </b-col>
         </b-row>
         <b-row cols="1" id="renglon" align-h="center">
@@ -48,7 +48,7 @@
                 label="INGRESE EL ID DE CONFIGURACION"
                 id="idConfig"
                 placeholder="-INGRESE EL ID DE CONFIGURACION-"
-                mensajeerror="INGRESAR EL ID DE CONFIGURACION ES OBLIGATORIO"/>
+                mensajeerror="EL ID DE CONFIGURACION ES OBLIGATORIO"/>
             </b-col>
         </b-row>
         <b-row cols="1" id="renglon" align-h="center">

@@ -91,9 +91,7 @@ foreign key (idProduto) references inventario(idProduto)
 /*Lista de configuraciones de la computadora*/
 create table softConfig(
 idConfig int primary key,
-nameConfig varchar(24),
-customized int
-/*0=NO 1=SI*/
+nameConfig varchar(24)
 );
 
 /*Lista de software de las configuraciones de la computadora*/

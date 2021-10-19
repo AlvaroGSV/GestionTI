@@ -25,7 +25,7 @@
                 <b-button variant="success" pill to="/software/AltaLicencia">Licencia <b-icon icon="bookmark-plus-fill"></b-icon></b-button>
             </b-col>
             <b-col>
-                <b-button variant="success" pill disabled>Configuracion de software base<b-icon icon="bookmark-plus-fill"></b-icon></b-button>
+                <b-button variant="success" pill to="/software/config/AltaSoftConfig">Configuracion de software base<b-icon icon="bookmark-plus-fill"></b-icon></b-button>
             </b-col>
         </b-row>
         <b-row>
