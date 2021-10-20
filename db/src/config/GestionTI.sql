@@ -172,6 +172,11 @@ numIncidentesResueltos int,
 experienceLvl int
 );
 
+
+/*TODO lista de usuarios*/
+/*Usuarios tecnicos y no tecnios que puedan hacer logIn*/
+
+
 /*lista de otros dispositivos*/
 create table otrosDispositivos(
 idDispositivo varchar(12) primary key,
@@ -187,3 +192,18 @@ foreign key (aulaNum) references aula(aulaNum),
 foreign key (edificio) references edificios(idEdificio),
 foreign key (idDocumentacion) references documentacion(idDocumentacion)
 );
+
+
+/*MODULO DE INCIDENCIAS*/
+/*
+REGISTRO/SOLICITUD DE INCIDENCIA, 
+ASIGNACION A TECNICO, 
+PRIORIDAD(OPCION MANUAL DEL ADMINISTRADOR),
+DIAGNOSTICO DEL TECNICO,
+CATALOGO DE SERVICIOS(
+    SERVICIOS OFECIDOS,
+    PASOS A REALIZAR,
+    TIEMPO PROMEDIO POR PASO (DISCRECION DEL TECNICO))
+*/
+
+/*CONTROL DE CAMBIOS*/

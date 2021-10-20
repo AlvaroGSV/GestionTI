@@ -51,7 +51,7 @@
         </b-row>
         <b-row cols="1" id="renglon" align-h="center">
             <b-col cols="12">
-                <b-button variant="success" pill="">GUARDAR <b-icon icon="bookmark-plus-fill"></b-icon></b-button>
+                <b-button variant="success" pill to="/hardware/selectNewComponents">SIGUIENTE <b-icon icon="arrow-right-circle-fill"/></b-button>
                 <b-button id="drecha" variant="danger" pill to="/MainPage">CANCELAR <b-icon icon="bookmark-x-fill"/></b-button>
             </b-col>
         </b-row>
