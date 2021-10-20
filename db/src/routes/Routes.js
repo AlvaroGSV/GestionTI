@@ -181,7 +181,9 @@ routes.put('/TECNICO/:id', Controller.editarTecnico);
 routes.delete('/TECNICO/:id', Controller.eliminarTecnico);
 
 //LOG IN
-routes.get('/SOFTWARE/:id', Controller.logIn);
+routes.get('/TECNICO/:id', Controller.logIn);
+
+
 
 //OTROS DISPOSITIVOS
 //GET

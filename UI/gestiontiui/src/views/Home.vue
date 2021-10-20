@@ -6,10 +6,11 @@
           <img class="icono" src="../img/iconoGTI.png" alt="icono">
         </b-col>
         <b-col cols="10">
-          <b-container fluid="md">
+          <b-container fluid="md" v-on:submit.prevent="logIn">
             <b-row id="renglon" cols="1" align-v="center" align-h="center">
               <b-col col md="7">
                 <Input
+                    v-model="tecnico.nControl"
                       label="NUMERO DE CONTROL"
                       id="nControl"
                       placeholder= "INGRESE SU NUMERO DE CONTROL"
@@ -21,8 +22,10 @@
             <b-row id="renglon" align-h="center">
               <b-col col md="7">
                 <Input
+                      v-model="tecnico.passkey"
                       label="CONTRASEÑA"
                       id="passkey"
+                      type="password"
                       placeholder="INGRESE SU CONTRASEÑA"
                       mensajeError="LA CONTRASEÑA ES OBLIGATORIA"
                       maxlength="10"
@@ -31,7 +34,7 @@
             </b-row>
             <b-row id="renglon" align-h="center">
               <b-col col md="7">
-                <b-button id="btnLogIn" pill to="/MainPage">INICIAR SESIÓN  <b-icon icon="person-bounding-box"></b-icon></b-button>
+                <b-button id="btnLogIn" type="submit" pill to="/MainPage">INICIAR SESIÓN  <b-icon icon="person-bounding-box"></b-icon></b-button>
               </b-col>
             </b-row>
           </b-container>
@@ -52,6 +55,17 @@ export default {
   name: 'Home',
   components: {
     Input
+  },
+  data(){
+    return{
+      tecnico:{
+        nControl: '',
+        passkey: ''
+      }
+    }
+  },
+  methods:{
+    logIn(){}
   }
 }
 </script>

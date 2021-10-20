@@ -11,7 +11,7 @@
             </b-col>
             <b-col col md="6">
                 <h6>FAVOR DE SELECCIONAR LA CATEGORIA</h6>
-                <b-form-select v-model="idCategoria" :options="categorias"/>
+                <FormSelect :vModel="idCategoria" :options="categorias"/>
             </b-col>
         </b-row>  
         <b-row cols="1" id="renglon" align-h="center">
@@ -68,26 +68,31 @@
         </b-row>
         <b-row cols="1" id="renglon" align-h="center">
             <b-col cols="12">
-                <b-button variant="success" pill>GUARDAR <b-icon icon="bookmark-plus-fill"/></b-button>
+                <b-button variant="success" pill="">GUARDAR <b-icon icon="bookmark-plus-fill"></b-icon></b-button>
+                <b-button id="drecha" variant="danger" pill to="/MainPage">CANCELAR <b-icon icon="bookmark-x-fill"/></b-button>
             </b-col>
-        </b-row>      
+        </b-row>       
     </b-container>
 </div>
 </template>
 
 <script>
 import Input from '../../components/Input.vue'
+import FormSelect from '../../components/FormSelect.vue'
 export default {
     components: {
-        Input
+        Input,
+        FormSelect
     },
     data(){
         return{
             manualBool: null,
             garantiaBool: null,
+            idCategoria: null,
             categorias: [
-                {value: 0, text :"CAT 1"},
-                {value: 1, text :"CAT 2"}
+                {value: null, text:'Escoja una categoria'},
+                {value: 0, text :'CAT 1'},
+                {value: 1, text :'CAT 2'}
             ]
         }
     }
@@ -98,5 +103,8 @@ export default {
 #renglon{
     margin-top: 1%;
     margin-bottom: 1%;
+}
+#drecha{
+    float: right;
 }
 </style>

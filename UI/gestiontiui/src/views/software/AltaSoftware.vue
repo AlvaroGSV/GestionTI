@@ -49,7 +49,7 @@
         <b-row cols="1" id="renglon" align-h="center">
             <b-col col md="5">
                 <h6>SELECCION EL SISTEMA OPERATIVO</h6>
-                <b-form-select v-model="sistemaOperativo" :options="sistemaOp"/>
+                <FormSelect :vModel="sistemaOperativo" :options="sistemaOp"/>
             </b-col>
             <b-col col md="7">
                 <Input
@@ -63,18 +63,21 @@
         </b-row>
         <b-row cols="1" id="renglon" align-h="center">
             <b-col cols="12">
-                <b-button variant="success" pill>GUARDAR <b-icon icon="bookmark-plus-fill"/></b-button>
+                <b-button variant="success" pill="">GUARDAR <b-icon icon="bookmark-plus-fill"></b-icon></b-button>
+                <b-button id="drecha" variant="danger" pill to="/MainPage">CANCELAR <b-icon icon="bookmark-x-fill"/></b-button>
             </b-col>
-        </b-row>  
+        </b-row> 
     </b-container>
 </div>
 </template>
 
 <script>
 import Input from '../../components/Input.vue'
+import FormSelect from '../../components/FormSelect.vue'
 export default {
     components: {
-        Input
+        Input,
+        FormSelect
     },
     data(){
         return{
@@ -93,5 +96,8 @@ export default {
 #renglon{
     margin-top: 1%;
     margin-bottom: 1%;
+}
+#drecha{
+    float: right;
 }
 </style>

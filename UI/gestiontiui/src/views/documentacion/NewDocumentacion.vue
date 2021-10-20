@@ -41,11 +41,12 @@
                 mensajeError="EL ARCHIVO DONDE ALMACENO LA GARANTIA ES OBLIGATORIO" />
             </b-col>
         </b-row>
-        <b-row id="renglon" align-h="center">
-            <b-col cols="7">
-                <b-button pill variant="success">GUARDAR  <b-icon icon="bookmark-plus-fill"></b-icon></b-button>
+        <b-row cols="1" id="renglon" align-h="center">
+            <b-col cols="12">
+                <b-button variant="success" pill="">GUARDAR <b-icon icon="bookmark-plus-fill"></b-icon></b-button>
+                <b-button id="drecha" variant="danger" pill to="/MainPage">CANCELAR <b-icon icon="bookmark-x-fill"/></b-button>
             </b-col>
-        </b-row>
+        </b-row> 
     </b-container>
 </div>
 </template>
@@ -78,5 +79,8 @@ export default {
 <style>
 #renglon{
     margin-bottom: 1%;
+}
+#drecha{
+    float: right;
 }
 </style>

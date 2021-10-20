@@ -2,7 +2,7 @@
 <div class="AltaSoftConfig">
     <b-container fluid="md">
         <b-row cols="1" id="renglon" align-h="center">
-            <b-col cols="6">
+            <b-col col md="6">
                 <Input 
                 label="INGRESE EL ID DE LA CONFIGURACION DE SOFTWARE" 
                 id="idConfig" 
@@ -11,7 +11,7 @@
                 mensajeerror="EL ID DE LA CONFIGURACION DE SOFTWARE ES OBLIGATORIO"
                 minlength="1"/>
             </b-col>
-            <b-col cols="6">
+            <b-col col md="6">
                 <Input 
                 label="INGRESE EL NOMBRE DE LA CONFIGURACION DE SOFTWARE" 
                 id="nameConfig"

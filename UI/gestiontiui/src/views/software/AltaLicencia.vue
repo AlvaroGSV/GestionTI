@@ -11,8 +11,7 @@
             </b-col>
             <b-col col md="6">
                 <h6>¿LA LICENCIA YA ESTA EN USO?</h6>
-                <b-form-select v-model="ocuped" :options="ocupedOp">
-            </b-form-select></b-col>
+                <FormSelect :vModel="ocuped" :options="ocupedOp"/></b-col>
         </b-row>  
         <b-row cols="1" id="renglon" align-h="center">
             <b-col col md="12">
@@ -25,12 +24,14 @@
             </b-col>
         </b-row>
         <b-row cols="1" id="renglon" align-h="center">
-            <b-col col md="6">
+            <b-col col md="12">
                 <Input 
                 label="INGRESE EL ID DEL SOFTWARE LICENCIADO" 
                 id="idSoftware" 
                 placeholder="INGRESE EL ID DEL SOFTWARE LICENCIADO" 
                 mensajeerror="EL ID ES OBLIGATORIO"/>
+            </b-col>
+        </b-row>
         <b-row cols="1" id="renglon" align-h="center">
             <b-col col md="12">
                 <Input 
@@ -44,19 +45,20 @@
         <b-row cols="1" id="renglon" align-h="center">
             <b-col cols="12">
                 <b-button variant="success" pill="">GUARDAR <b-icon icon="bookmark-plus-fill"></b-icon></b-button>
+                <b-button id="drecha" variant="danger" pill to="/MainPage">CANCELAR <b-icon icon="bookmark-x-fill"/></b-button>
             </b-col>
-        </b-row>      
-    </b-col>
-    </b-row>
+        </b-row>
     </b-container>
 </div>
 </template>
 
 <script>
 import Input from '../../components/Input.vue'
+import FormSelect from '../../components/FormSelect.vue'
 export default {
     components: {
-        Input
+        Input,
+        FormSelect
     },
     data(){
         return{
@@ -74,5 +76,8 @@ export default {
 #renglon{
     margin-top: 1%;
     margin-bottom: 1%;
+}
+#drecha{
+    float: right;
 }
 </style>

@@ -20,11 +20,11 @@
         <b-row cols="1" id="renglon" align-h="center">
             <b-col col md="6">
                 <h6>EN QUE EDIFICIO ESTA INSTALADA</h6>
-                <b-form-select v-model="edificio" :options="opEdificio"/>
+                <FormSelect :vModel="edificio" :options="opEdificio"/>
             </b-col>
             <b-col col md="6">
                 <h6>EN QUE AULA O CUBICULO ESTA INSTALADA</h6>
-                <b-form-select v-model="aula" :options="opAula"/>
+                <FormSelect :vModel="aula" :options="opAula"/>
             </b-col>
         </b-row>
         <b-row cols="1" id="renglon" align-h="center">
@@ -39,7 +39,7 @@
         <b-row cols="1" id="renglon" align-h="center">
             <b-col col md="12">
                 <h6>¿OCUPA SOFTWARE ESPECIALIZADO?</h6>
-                <b-form-select v-model="softEsp" :options="opSoftEsp"/>
+                <FormSelect :vModel="softEsp" :options="opSoftEsp"/>
             </b-col>
         </b-row>
         <b-row cols="1" id="renglon" align-h="center">
@@ -60,19 +60,27 @@
 
 <script>
 import Input from '../../components/Input.vue'
+import FormSelect from '../../components/FormSelect.vue'
 export default {
     components: {
-        Input
+        Input,
+        FormSelect
     },
     data(){
         return{
-            edificio: 0,
-            aula: 0,
+            edificio: null,
+            aula: null,
+            softEsp: null,
             opEdificio:[
-                {value:"0", text:"FALTA CONEXION A BASE DE DATOS"}
+                {value:null, text:'FALTA CONEXION A BASE DE DATOS'}
             ],
             opAula:[
-                {value:"0", text:"FALTA CONEXION A BASE DE DATOS"}
+                {value:null, text:'FALTA CONEXION A BASE DE DATOS'}
+            ],
+            opSoftEsp:[
+                {value:null, text:'ESCOJA LA OPCION NECESARIA'},
+                {value:0, text:'NO'},
+                {value:1, text:'SI'}
             ]
         }
     }

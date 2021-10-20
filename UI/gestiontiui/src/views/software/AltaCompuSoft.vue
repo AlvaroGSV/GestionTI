@@ -12,7 +12,7 @@
             </b-col>
             <b-col col md="6">
                 <h6>SELECCIONE EL SISTEMA OPERATIVO</h6>
-                <b-form-select v-model="SO" :options="opSO"/>
+                <FormSelect :vModel="SO" :options="opSO"/>
             </b-col>
         </b-row>  
         <b-row cols="1" id="renglon" align-h="center">
@@ -35,11 +35,11 @@
         <b-row cols="1" id="renglon" align-h="center">
             <b-col col md="6">
                 <h6>SELECCIONE EL NAVEGADOR</h6>
-                <b-form-select v-model="navegador" :options="opNavegador"/>
+                <FormSelect :vModel="navegador" :options="opNavegador"/>
             </b-col>
             <b-col col md="6">
                 <h6>¿TIENE EL DEEPFREZE?</h6>
-                <b-form-select v-model="freze" :options="opFreze"/>
+                <FormSelect :vModel="freze" :options="opFreze"/>
             </b-col>
         </b-row>
         <b-row cols="1" id="renglon" align-h="center">
@@ -63,9 +63,11 @@
 
 <script>
 import Input from '../../components/Input.vue'
+import FormSelect from '../../components/FormSelect.vue'
 export default {
     components: {
-        Input
+        Input,
+        FormSelect
     },
     data(){
         return{
