@@ -3,15 +3,15 @@ use GestionTI;
 
 /*Lista de edificios*/
 create table edificios(
-idEdificio varchar(6) primary key
+idEdificio varchar(6) primary key,
 nomEdificio varchar (12)
 );
 
 /*lista de aulas o cubiculos por edificio*/
 create table aula(
 aulaNum int primary key,
-nomEdificio varchar(12),
-foreign key (nomEdificio) references edificios(nomEdificio)
+idEdificio varchar(6),
+foreign key (idEdificio) references edificios(idEdificio)
 );
 
 /*lista de documentación*/
@@ -187,4 +187,3 @@ foreign key (aulaNum) references aula(aulaNum),
 foreign key (edificio) references edificios(idEdificio),
 foreign key (idDocumentacion) references documentacion(idDocumentacion)
 );
-

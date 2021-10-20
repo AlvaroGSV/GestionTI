@@ -180,6 +180,9 @@ routes.put('/TECNICO/:id', Controller.editarTecnico);
 //DELETE
 routes.delete('/TECNICO/:id', Controller.eliminarTecnico);
 
+//LOG IN
+routes.get('/SOFTWARE/:id', Controller.logIn);
+
 //OTROS DISPOSITIVOS
 //GET
 routes.get('/TECNICO/', Controller.listaOtrosDispositivos);

@@ -1806,6 +1806,26 @@ function eliminarOtroDispositivo(req, res){
     }
 }
 
+//LOGIN
+function logIn(req, res) {
+    if(connection){
+        const { id } = req.params;
+        const pass = req.body;
+        let sql = `select nControl, passkey from Tecnicos where nControl= ${connection.escape(id)} and passkey= ${connection.escape(pass)};`
+        
+        connection.query(sql, [id, pass], (err) => {
+            if(err){
+                res.json(error);
+            } else {
+                let mensaje = "";
+                if(otrosDispositivos === undefined || otrosDispositivos.length === 0)
+                mensaje = "Otro Dispositivo no encontrado";
+                res.json({error: false, data: otrosDispositivos, mensaje: mensaje})
+            }
+        })
+    }
+}
+
 //FIN DE FUNCIONES DE TECNICOS
 
 
@@ -1912,5 +1932,7 @@ module.exports = {
     listaOtrosDispositivos,
     obtenerOtroDispositivo,
     editarOtroDispositivo,
-    eliminarOtroDispositivo
+    eliminarOtroDispositivo,
+
+    logIn
 }
