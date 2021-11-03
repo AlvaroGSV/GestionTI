@@ -159,24 +159,6 @@ foreign key (edificio) references edificios(idEdificio),
 foreign key (aulaNum) references aula(aulaNum)
 );
 
-/*lista de tecnicos*/
-create table Tecnicos(
-nControl varchar(10) primary key,
-primerNombre varchar(15),
-segundoNombre varchar(15),
-primerApellido varchar(15),
-segundoApellido varchar(15),
-passkey varchar(10),
-numIncidentesActuales  int,
-numIncidentesResueltos int,
-experienceLvl int
-);
-
-
-/*TODO lista de usuarios*/
-/*Usuarios tecnicos y no tecnios que puedan hacer logIn*/
-
-
 /*lista de otros dispositivos*/
 create table otrosDispositivos(
 idDispositivo varchar(12) primary key,
@@ -193,17 +175,97 @@ foreign key (edificio) references edificios(idEdificio),
 foreign key (idDocumentacion) references documentacion(idDocumentacion)
 );
 
+/*TODO - VISTAS DE INGRESAR DATOS DE LAS SIGUIENTES TABLAS*/
 
-/*MODULO DE INCIDENCIAS*/
+create table usuarios(
+nUsuario varchar(10) primary key,
+primerNombre varchar(15),
+segundoNombre varchar(15),
+primerApellido varchar(15),
+segundoApellido varchar(15),
+passkey varchar(10),
+tipoUsuario int
+/*0=tecnico 1=no tecnico 2=administrador de tecnicos 3=administrador de inventario*/
+);
+
+/*Los tecnicos pueden revisar las tareas asignadas
+
+Los no tecnicos solo pueden iniciar incidentes o solicitar asistencias
+
+Los administradores de tecnicos pueden dar de alta, 
+editar o dar de baja tecnicos, asignar incidentes a los tecnicos
+
+Los administradores de inventario pueden dar de alta o baja el inventario y 
+registros de los datos que almacena el sistema/
+
+/*lista de tecnicos*/
+create table Tecnicos(
+nUsuario varchar(10),
+numIncidentesActuales int,
+numIncidentesResueltos int,
+experienceLvl int,
+foreign key (nUsuario) references usuarios(nUsuario)
+);
+/*El nivel de experiencia subira un nuvel cada 10 incidntes resueltos*/
+
+create table incidentes(
+nIncidnete int primary key,
+idEdificio varchar(6),
+aulaNum int,
+esCompu int, /*0=NO 1=SI*/
+esDispositivoRed int, /*0=NO 1=SI*/
+esOtroDispositivo int, /*0=NO 1=SI*/
+idCompu int, /*en caso de que sea una computadora*/
+deviceID int, /*en caso de que sea un dispositivo de red*/
+idDispositivo varchar(12), /*en caso de que sea otro dispositivo*/
+foreign key (idEdificio) references edificios(idEdificio),
+foreign key (aulaNum) references aula(aulaNum),
+foreign key (idCompu) references computer(idCompu),
+foreign key (deviceID) references NetworkDevices(deviceID),
+foreign key (idDispositivo) references otrosDispositivos(idDispositivo)
+);
+
+create table incidentesXtecnico(
+nUsuario varchar(10),
+nIncidnete int,
+prioridad int,
+/*
+El administrador determinara la prioridad
+
+0 = urgente, 1 = prioritario pero puede esperar, 2= normal, 3 = bajo
+*/
+foreign key (nUsuario) references Tecnicos(nUsuario),
+foreign key (nIncidnete) references incidentes(nIncidnete)
+);
+
+create table serviciosTecnicos(
+nServicio int primary key,
+nomServicio varchar(30),
+descServicio text, 
+tiempoEstimado time
+);
+
+create table pasosDeServicioTecnicos(
+nServicio int,
+nPaso int,
+descPaso text,
+tiempoEstimado time,
+foreign key (nServicio) references serviciosTecnicos(nServicio)
+);
+
+create table avanceIncidencia(
+nIncidnete int,
+diagnosticoInicial text,
+fecha date,
+hora time,
+servicioXRealizar int,
+foreign key (servicioXRealizar) references serviciosTecnicos(nServicio)
+);
+
+
 /*
 REGISTRO/SOLICITUD DE INCIDENCIA, 
-ASIGNACION A TECNICO, 
-PRIORIDAD(OPCION MANUAL DEL ADMINISTRADOR),
-DIAGNOSTICO DEL TECNICO,
-CATALOGO DE SERVICIOS(
-    SERVICIOS OFECIDOS,
-    PASOS A REALIZAR,
-    TIEMPO PROMEDIO POR PASO (DISCRECION DEL TECNICO))
+
 */
 
 /*CONTROL DE CAMBIOS*/
