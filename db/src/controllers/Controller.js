@@ -1578,123 +1578,6 @@ function eliminarRed(req, res){
 //FIN DE FUNCIONES DE RED
 
 
-//INICIO DE FUNCIONES DE TECNICOS
-//AGREGAR TECNICO
-function nuevoTecnico(req, res){
-    if(connection){
-        const Tecnicos = req.body;
-        if(!Tecnicos.nControl){
-            return res.status(400).send({error: true, mensaje: "El numero de control es obligatorio"})
-        }
-        if(!Tecnicos.primerNombre){
-            return res.status(400).send({error: true, mensaje: "El primer nombre obligatorio"})
-        }
-        if(!Tecnicos.segundoNombre){
-            return res.status(400).send({error: true, mensaje: "El segundo nombre obligatorio"})
-        }
-        if(!Tecnicos.primerApellido){
-            return res.status(400).send({error: true, mensaje: "El primer apellido obligatorio"})
-        }
-        if(!Tecnicos.segundoApellido){
-            return res.status(400).send({error: true, mensaje: "El segundo apellido obligatorio"})
-        }
-        if(!Tecnicos.passkey){
-            return res.status(400).send({error: true, mensaje: "La contraseña es obligatoria"})
-        }
-        if(!Tecnicos.numIncidentesActuales){
-            return res.status(400).send({error: true, mensaje: "El numero de incidentes actuales obligatorio"})
-        }
-        if(!Tecnicos.numIncidentesResueltos){
-            return res.status(400).send({error: true, mensaje: "El numero de incidentes resueltos obligatorio"})
-        }
-        if(!Tecnicos.experienceLvl){
-            return res.status(400).send({error: true, mensaje: "El nivel de experiencia es obligatorio"})
-        }
-        let sql = 'INSERT INTO Tecnicos set ?';
-        connection.query(sql, [Tecnicos], (err, rows) => {
-            if(err) {
-                res.json(err)
-            } else {
-                res.json({error: false, data: rows, mensaje: "Tecnico añadido"})
-            }
-        })
-    }
-}
-//VER TODOS LOS TECNICOS
-function listaTecnicos(req, res) {
-    if(connection){
-        let sql = 'select * from Tecnicos';
-        connection.query(sql, (err, Tecnicos) => {
-            if(err){
-                res.send(err)
-            } else {
-                console.log(Tecnicos);
-                res.json(Tecnicos);
-            }
-        })
-    }
-}
-//VER TAL TECNICO
-function obtenerTecnico(req, res) {
-    if(connection){
-        const { id } = req.params;
-        let sql = `SELECT * FROM Tecnicos WHERE nControl = ${connection.escape(id)}`;
-        connection.query(sql, (err, Tecnicos) => {
-            if(err){
-                res.json(error);
-            } else {
-                let mensaje = "";
-                if(Tecnicos === undefined || Tecnicos.length === 0)
-                mensaje = "Tecnico no encontrado";
-                res.json({error: false, data: Tecnicos, mensaje: mensaje})
-            }
-        })
-    }
-}
-//EDITAR TECNICO
-function editarTecnico(req, res){
-    if(connection){
-        const { id } = req.params;
-        const Tecnicos = req.body;
-        let sql = 'UPDATE Tecnicos set ? where nControl = ?';
-        connection.query(sql, [Tecnicos, id], (err, rows) => {
-            if(err){
-                res.json(err)
-            } else {
-                let mensaje = "";
-                if(rows.changedRows === 0){
-                    mensaje = "La información es la misma"
-                } else {
-                    mensaje = "Tecnico editado con exito"
-                }
-                res.json({error: false, data: rows, mensaje: mensaje})
-            }
-        })
-    }
-}
-//ELIMINAR TECNICO
-function eliminarTecnico(req, res){
-    if(connection){
-        const { id } = req.params;
-        let sql = 'DELETE FROM Tecnicos WHERE nControl = ?';
-        connection.query(sql, [id], (err, rows) => {
-            if(err){
-                res.json(err)
-            } else {
-                let mensaje = "";
-                if (rows.affectedRows === 0)
-                    mensaje = "Tecnico no encontrado"
-                else 
-                    mensaje= "Tecnico eliminado con exito"
-                res.json({error: false, data: rows, mensaje})
-            }
-        })
-    }
-}
-
-//FIN DE FUNCIONES DE TECNICOS
-
-
 //INICIO DE FUNCIONES DE OTROS DISPOSITIVOS
 //AGREGAR OTRO DISPOSITIVO
 function nuevoOtroDispositivo(req, res){
@@ -1765,7 +1648,7 @@ function obtenerOtroDispositivo(req, res) {
         })
     }
 }
-//EDITAR TECNICO
+//EDITAR OTRO DISPOSITIVO
 function editarOtroDispositivo(req, res){
     if(connection){
         const { id } = req.params;
@@ -1786,7 +1669,7 @@ function editarOtroDispositivo(req, res){
         })
     }
 }
-//ELIMINAR TECNICO
+//ELIMINAR OTRO DISPOSITIVO
 function eliminarOtroDispositivo(req, res){
     if(connection){
         const { id } = req.params;
@@ -1805,6 +1688,9 @@ function eliminarOtroDispositivo(req, res){
         })
     }
 }
+
+//FIN DE FUNCIONES DE OTROS DISPOSITIVOS
+
 
 //LOGIN
 function logIn(req, res) {
@@ -1826,8 +1712,736 @@ function logIn(req, res) {
     }
 }
 
+
+//INICIO DE USUARIOS
+//AGREGAR USUARIO
+function nuevoUsuario(req, res){
+    if(connection){
+        const usuarios = req.body;
+        if(!usuarios.nUsuario){
+            return res.status(400).send({error: true, mensaje: "El numero de usuario es obligatorio"})
+        }
+        if(!usuarios.primerNombre){
+            return res.status(400).send({error: true, mensaje: "El primer nombre es obligatorio"})
+        }
+        if(!usuarios.primerApellido){
+            return res.status(400).send({error: true, mensaje: "El primer apellido es obligatorio"})
+        }
+        if(!usuarios.passkey){
+            return res.status(400).send({error: true, mensaje: "La contraseña es obligatoria"})
+        }
+        if(!usuarios.tipoUsuario){
+            return res.status(400).send({error: true, mensaje: "El tipo de usuario es obligatorio"})
+        }
+        let sql = 'INSERT INTO usuarios set ?';
+        connection.query(sql, [usuarios], (err, rows) => {
+            if(err) {
+                res.json(err)
+            } else {
+                res.json({error: false, data: rows, mensaje: "Nuevo dispositivo añadido"})
+            }
+        })
+    }
+}
+//VER TODOS LOS USUARIOS
+function listaUsuarios(req, res) {
+    if(connection){
+        let sql = 'select * from usuarios';
+        connection.query(sql, (err, usuarios) => {
+            if(err){
+                res.send(err)
+            } else {
+                console.log(usuarios);
+                res.json(usuarios);
+            }
+        })
+    }
+}
+//VER TAL USUARIO
+function obtenerUsuario(req, res) {
+    if(connection){
+        const { id } = req.params;
+        let sql = `SELECT * FROM usuarios WHERE nUsuario = ${connection.escape(id)}`;
+        connection.query(sql, (err, usuarios) => {
+            if(err){
+                res.json(error);
+            } else {
+                let mensaje = "";
+                if(usuarios === undefined || usuarios.length === 0)
+                mensaje = "Otro Usuario no encontrado";
+                res.json({error: false, data: usuarios, mensaje: mensaje})
+            }
+        })
+    }
+}
+//EDITAR USUARIO
+function editarUsuario(req, res){
+    if(connection){
+        const { id } = req.params;
+        const usuarios = req.body;
+        let sql = 'UPDATE usuarios set ? where nUsuario = ?';
+        connection.query(sql, [usuarios, id], (err, rows) => {
+            if(err){
+                res.json(err)
+            } else {
+                let mensaje = "";
+                if(rows.changedRows === 0){
+                    mensaje = "La información es la misma"
+                } else {
+                    mensaje = "Usuario editado con exito"
+                }
+                res.json({error: false, data: rows, mensaje: mensaje})
+            }
+        })
+    }
+}
+//ELIMINAR USUARIO
+function eliminarUsuario(req, res){
+    if(connection){
+        const { id } = req.params;
+        let sql = 'DELETE FROM usuarios WHERE nUsuario = ?';
+        connection.query(sql, [id], (err, rows) => {
+            if(err){
+                res.json(err)
+            } else {
+                let mensaje = "";
+                if (rows.affectedRows === 0)
+                    mensaje = "Usuario no encontrado"
+                else 
+                    mensaje= "Usuario eliminado con exito"
+                res.json({error: false, data: rows, mensaje})
+            }
+        })
+    }
+}
+
+//FIN DE FUNCIONES DE USUARIOS
+
+
+//INICIO DE TECNICOS
+//AGREGAR TECNICO
+function nuevoTecnico(req, res){
+    if(connection){
+        const Tecnicos = req.body;
+        if(!Tecnicos.nUsuario){
+            return res.status(400).send({error: true, mensaje: "El numero de usuario es obligatorio"})
+        }
+        if(!Tecnicos.numIncidentesActuales){
+            return res.status(400).send({error: true, mensaje: "El numero de incidentes actuales es obligatorio"})
+        }
+        if(!Tecnicos.numIncidentesResueltos){
+            return res.status(400).send({error: true, mensaje: "El numero de incidentes resueltos es obligatorio"})
+        }
+        if(!Tecnicos.experienceLvl){
+            return res.status(400).send({error: true, mensaje: "El nivel de experiencia es obligatorio"})
+        }
+        let sql = 'INSERT INTO Tecnicos set ?';
+        connection.query(sql, [Tecnicos], (err, rows) => {
+            if(err) {
+                res.json(err)
+            } else {
+                res.json({error: false, data: rows, mensaje: "Nuevo tecnico iniciado"})
+            }
+        })
+    }
+}
+//VER TODOS LOS TECNICOS
+function listaTecnicos(req, res) {
+    if(connection){
+        let sql = 'select * from Tecnicos';
+        connection.query(sql, (err, Tecnicos) => {
+            if(err){
+                res.send(err)
+            } else {
+                console.log(Tecnicos);
+                res.json(Tecnicos);
+            }
+        })
+    }
+}
+//VER TAL TECNICO
+function obtenerTecnico(req, res) {
+    if(connection){
+        const { id } = req.params;
+        let sql = `SELECT * FROM Tecnicos WHERE nUsuario = ${connection.escape(id)}`;
+        connection.query(sql, (err, Tecnicos) => {
+            if(err){
+                res.json(error);
+            } else {
+                let mensaje = "";
+                if(Tecnicos === undefined || Tecnicos.length === 0)
+                mensaje = "Tecnicos no encontrado";
+                res.json({error: false, data: Tecnicos, mensaje: mensaje})
+            }
+        })
+    }
+}
+//EDITAR TECNICO
+function editarTecnico(req, res){
+    if(connection){
+        const { id } = req.params;
+        const Tecnicos = req.body;
+        let sql = 'UPDATE Tecnicos set ? where nUsuario = ?';
+        connection.query(sql, [Tecnicos, id], (err, rows) => {
+            if(err){
+                res.json(err)
+            } else {
+                let mensaje = "";
+                if(rows.changedRows === 0){
+                    mensaje = "La información es la misma"
+                } else {
+                    mensaje = "Tecnico editado con exito"
+                }
+                res.json({error: false, data: rows, mensaje: mensaje})
+            }
+        })
+    }
+}
+//ELIMINAR TECNICO
+function eliminarTecnico(req, res){
+    if(connection){
+        const { id } = req.params;
+        let sql = 'DELETE FROM Tecnicos WHERE nUsuario = ?';
+        connection.query(sql, [id], (err, rows) => {
+            if(err){
+                res.json(err)
+            } else {
+                let mensaje = "";
+                if (rows.affectedRows === 0)
+                    mensaje = "Tecnico no encontrado"
+                else 
+                    mensaje= "Tecnico eliminado con exito"
+                res.json({error: false, data: rows, mensaje})
+            }
+        })
+    }
+}
+
 //FIN DE FUNCIONES DE TECNICOS
 
+
+//INICIO DE INCIDENTES
+//AGREGAR INCIDENTE
+function nuevoIncidente(req, res){
+    if(connection){
+        const incidentes = req.body;
+        if(!incidentes.nIncidnete){
+            return res.status(400).send({error: true, mensaje: "El numero de incidente es obligatorio"})
+        }
+        if(!incidentes.idEdificio){
+            return res.status(400).send({error: true, mensaje: "El edificio es obligatorio"})
+        }
+        if(!incidentes.aulaNum){
+            return res.status(400).send({error: true, mensaje: "El aula o cubiculo es obligatorio"})
+        }
+        if(!incidentes.esCompu){
+            return res.status(400).send({error: true, mensaje: "Saber si es una computadora es obligatorio"})
+        }
+        if(!incidentes.esDispositivoRed){
+            return res.status(400).send({error: true, mensaje: "Saber si es un dispositivo de red es obligatorio"})
+        }
+        if(!incidentes.esOtroDispositivo){
+            return res.status(400).send({error: true, mensaje: "Saber si es otro dispositivo es obligatorio"})
+        }
+        if(incidentes.esCompu = "1"){
+            if(!incidentes.idCompu){
+                return res.status(400).send({error: true, mensaje: "El id de computadora es obligatorio"})
+            }
+        }
+        if(incidentes.esDispositivoRed = "1"){
+            if(!incidentes.deviceID){
+                return res.status(400).send({error: true, mensaje: "El id de dispositivo de red obligatorio"})
+            }
+        }
+        if(incidentes.esOtroDispositivo = "1"){
+            if(!incidentes.idDispositivo){
+                return res.status(400).send({error: true, mensaje: "El id de otro dispositivo obligatorio"})
+            }
+        }
+        let sql = 'INSERT INTO incidentes set ?';
+        connection.query(sql, [incidentes], (err, rows) => {
+            if(err) {
+                res.json(err)
+            } else {
+                res.json({error: false, data: rows, mensaje: "Nuevo Incidente iniciado"})
+            }
+        })
+    }
+}
+//VER TODOS LOS INCIDENTES
+function listaIncidentes(req, res) {
+    if(connection){
+        let sql = 'select * from incidentes';
+        connection.query(sql, (err, incidentes) => {
+            if(err){
+                res.send(err)
+            } else {
+                console.log(incidentes);
+                res.json(incidentes);
+            }
+        })
+    }
+}
+//VER TAL INCIDENTE
+function obtenerIncidente(req, res) {
+    if(connection){
+        const { id } = req.params;
+        let sql = `SELECT * FROM incidentes WHERE nIncidnete = ${connection.escape(id)}`;
+        connection.query(sql, (err, incidentes) => {
+            if(err){
+                res.json(error);
+            } else {
+                let mensaje = "";
+                if(incidentes === undefined || incidentes.length === 0)
+                mensaje = "Incidente no encontrado";
+                res.json({error: false, data: incidentes, mensaje: mensaje})
+            }
+        })
+    }
+}
+//EDITAR INCIDENTE
+function editarIncidente(req, res){
+    if(connection){
+        const { id } = req.params;
+        const incidentes = req.body;
+        let sql = 'UPDATE incidentes set ? where nIncidnete = ?';
+        connection.query(sql, [incidentes, id], (err, rows) => {
+            if(err){
+                res.json(err)
+            } else {
+                let mensaje = "";
+                if(rows.changedRows === 0){
+                    mensaje = "La información es la misma"
+                } else {
+                    mensaje = "Incidente editado con exito"
+                }
+                res.json({error: false, data: rows, mensaje: mensaje})
+            }
+        })
+    }
+}
+//ELIMINAR INCIDENTE
+function eliminarIncidente(req, res){
+    if(connection){
+        const { id } = req.params;
+        let sql = 'DELETE FROM incidentes WHERE nIncidnete = ?';
+        connection.query(sql, [id], (err, rows) => {
+            if(err){
+                res.json(err)
+            } else {
+                let mensaje = "";
+                if (rows.affectedRows === 0)
+                    mensaje = "Incidente no encontrado"
+                else 
+                    mensaje= "Incidente eliminado con exito"
+                res.json({error: false, data: rows, mensaje})
+            }
+        })
+    }
+}
+
+//FIN DE FUNCIONES DE INCIDENTES
+
+
+//INICIO DE FUNCIONES DE INCIDENTES X TECNICOS
+//AGREGAR INCIDENTE X TECNICO
+function nuevaRelacionIncidenteTecncio(req, res){
+    if(connection){
+        const incidentesXtecnico = req.body;
+        if(!incidentesXtecnico.nUsuario){
+            return res.status(400).send({error: true, mensaje: "El numero de usuario es obligatorio"})
+        }
+        if(!incidentesXtecnico.nIncidnete){
+            return res.status(400).send({error: true, mensaje: "El numero de incidente es obligatorio"})
+        }
+        if(!incidentesXtecnico.prioridad){
+            return res.status(400).send({error: true, mensaje: "La prioridad es obligatoria"})
+        }
+        let sql = 'INSERT INTO incidentesXtecnico set ?';
+        connection.query(sql, [incidentesXtecnico], (err, rows) => {
+            if(err) {
+                res.json(err)
+            } else {
+                res.json({error: false, data: rows, mensaje: "RELACION DE INCIDENTE CON TECNICO CREADA"})
+            }
+        })
+    }
+}
+
+//VER TODOS LOS INCIDENTES X TECNICOS
+function listaRelacionesIncidentesTecncios(req, res) {
+    if(connection){
+        let sql = 'select * from incidentesXtecnico';
+        connection.query(sql, (err, incidentesXtecnico) => {
+            if(err){
+                res.send(err)
+            } else {
+                console.log(incidentesXtecnico);
+                res.json(incidentesXtecnico);
+            }
+        })
+    }
+}
+//VER TAL INCIDENTE X TECNICO
+function obtenerRelacionIncidenteTecncio(req, res) {
+    if(connection){
+        const { nUsuario } = req.params;
+        const {nIncidnete} = req.params;
+        let sql = `SELECT * FROM incidentesXtecnico WHERE nUsuario = ${connection.escape(nUsuario)} AND nIncidnete = ${connection.escape(nIncidnete)}`;
+        connection.query(sql, (err, incidentesXtecnico) => {
+            if(err){
+                res.json(error);
+            } else {
+                let mensaje = "";
+                if(incidentesXtecnico === undefined || incidentesXtecnico.length === 0)
+                mensaje = "Relacion no encontrada";
+                res.json({error: false, data: incidentesXtecnico, mensaje: mensaje})
+            }
+        })
+    }
+}
+//EDITAR INCIDENTE X TECNICO
+function editarRelacionIncidenteTecncio(req, res){
+    if(connection){
+        const { nUsuario } = req.params;
+        const {nIncidnete} = req.params;
+        const incidentesXtecnico = req.body;
+        let sql = 'UPDATE incidentesXtecnico set ? where nUsuario = ? AND nIncidnete = ?';
+        connection.query(sql, [incidentesXtecnico, nUsuario, nIncidnete], (err, rows) => {
+            if(err){
+                res.json(err)
+            } else {
+                let mensaje = "";
+                if(rows.changedRows === 0){
+                    mensaje = "LA INFORMAION ES LA MISMA"
+                } else {
+                    mensaje = "RELACION MODIFICADA CON EXITO"
+                }
+                res.json({error: false, data: rows, mensaje: mensaje})
+            }
+        })
+    }
+}
+//ELIMINAR INCIDENTE X TECNICO
+function eliminarRelacionIncidenteTecncio(req, res){
+    if(connection){
+        const { nUsuario } = req.params;
+        const {nIncidnete} = req.params;
+        let sql = 'DELETE FROM incidentesXtecnico WHERE where nUsuario = ? AND nIncidnete = ?';
+        connection.query(sql, [nUsuario,nIncidnete], (err, rows) => {
+            if(err){
+                res.json(err)
+            } else {
+                let mensaje = "";
+                if (rows.affectedRows === 0)
+                    mensaje = "RELACION NO ENCONTRADA"
+                else 
+                    mensaje= "RELACION ELIMINADA CON EXITO"
+                res.json({error: false, data: rows, mensaje})
+            }
+        })
+    }
+}
+
+//FIN DE FUNCIONES DE INCIDENTES X TECNICOS
+
+
+//INICIO DE SERVICIOS TECNICOS
+//AGREGAR SERVICIO TECNICO
+function nuevoServicioTecnico(req, res){
+    if(connection){
+        const serviciosTecnicos = req.body;
+        if(!serviciosTecnicos.nServicio){
+            return res.status(400).send({error: true, mensaje: "El numero de servicio es obligatorio"})
+        }
+        if(!serviciosTecnicos.nomServicio){
+            return res.status(400).send({error: true, mensaje: "El nombre del servicio es obligatorio"})
+        }
+        if(!serviciosTecnicos.descServicio){
+            return res.status(400).send({error: true, mensaje: "La descripcion del servicio es obligatoria"})
+        }
+        if(!serviciosTecnicos.tiempoEstimado){
+            return res.status(400).send({error: true, mensaje: "El tiempo estimado es obligatorio"})
+        }
+        let sql = 'INSERT INTO serviciosTecnicos set ?';
+        connection.query(sql, [serviciosTecnicos], (err, rows) => {
+            if(err) {
+                res.json(err)
+            } else {
+                res.json({error: false, data: rows, mensaje: "SERVICIO TECNICO AGREGADO"})
+            }
+        })
+    }
+}
+//VER TODOS LOS SERVICIOS TECNICOS
+function listaServicioTecnico(req, res) {
+    if(connection){
+        let sql = 'select * from serviciosTecnicos';
+        connection.query(sql, (err, serviciosTecnicos) => {
+            if(err){
+                res.send(err)
+            } else {
+                console.log(serviciosTecnicos);
+                res.json(serviciosTecnicos);
+            }
+        })
+    }
+}
+//VER TAL SERVICIO TECNICO
+function obtenerServicioTecnico(req, res) {
+    if(connection){
+        const { id } = req.params;
+        let sql = `SELECT * FROM serviciosTecnicos WHERE nServicio = ${connection.escape(id)}`;
+        connection.query(sql, (err, serviciosTecnicos) => {
+            if(err){
+                res.json(error);
+            } else {
+                let mensaje = "";
+                if(serviciosTecnicos === undefined || serviciosTecnicos.length === 0)
+                mensaje = "Servicio tecnico no encontrado";
+                res.json({error: false, data: serviciosTecnicos, mensaje: mensaje})
+            }
+        })
+    }
+}
+//EDITAR SERVICIO TECNICO
+function editarServicioTecnico(req, res){
+    if(connection){
+        const { id } = req.params;
+        const serviciosTecnicos = req.body;
+        let sql = 'UPDATE serviciosTecnicos set ? where nServicio = ?';
+        connection.query(sql, [serviciosTecnicos, id], (err, rows) => {
+            if(err){
+                res.json(err)
+            } else {
+                let mensaje = "";
+                if(rows.changedRows === 0){
+                    mensaje = "La información es la misma"
+                } else {
+                    mensaje = "Servicio tecnico editado con exito"
+                }
+                res.json({error: false, data: rows, mensaje: mensaje})
+            }
+        })
+    }
+}
+//ELIMINAR SERVICIO TECNICO
+function eliminarServicioTecnico(req, res){
+    if(connection){
+        const { id } = req.params;
+        let sql = 'DELETE FROM serviciosTecnicos WHERE nServicio = ?';
+        connection.query(sql, [id], (err, rows) => {
+            if(err){
+                res.json(err)
+            } else {
+                let mensaje = "";
+                if (rows.affectedRows === 0)
+                    mensaje = "Servicio tecnico no encontrado"
+                else 
+                    mensaje= "Servicio tecnico eliminado con exito"
+                res.json({error: false, data: rows, mensaje})
+            }
+        })
+    }
+}
+
+//FIN DE FUNCIONES DE SERVICIOS TECNICOS
+
+
+//INICIO DE PASOS SERVICIOS TECNICOS
+//AGREGAR PASO DE SERVICIO TECNICO
+function nuevoPasoServicioTecnico(req, res){
+    if(connection){
+        const serviciosTecnicos = req.body;
+        if(!serviciosTecnicos.nServicio){
+            return res.status(400).send({error: true, mensaje: "El numero de servicio es obligatorio"})
+        }
+        if(!serviciosTecnicos.nPaso){
+            return res.status(400).send({error: true, mensaje: "El turnno del paso es obligatorio"})
+        }
+        if(!serviciosTecnicos.descPaso){
+            return res.status(400).send({error: true, mensaje: "La descripcion del paso es obligatoria"})
+        }
+        if(!serviciosTecnicos.tiempoEstimado){
+            return res.status(400).send({error: true, mensaje: "El tiempo estimado es obligatorio"})
+        }
+        let sql = 'INSERT INTO pasosDeServicioTecnicos set ?';
+        connection.query(sql, [serviciosTecnicos], (err, rows) => {
+            if(err) {
+                res.json(err)
+            } else {
+                res.json({error: false, data: rows, mensaje: "PASO DE SERVICIO TECNICO AGREGADO"})
+            }
+        })
+    }
+}
+
+//VER PASOS DEL SERVICIO TECNICO
+function listarPasosServicioTecnico(req, res) {
+    if(connection){
+        const { id } = req.params;
+        let sql = `SELECT * FROM pasosDeServicioTecnicos WHERE nServicio = ${connection.escape(id)}`;
+        connection.query(sql, (err, serviciosTecnicos) => {
+            if(err){
+                res.json(error);
+            } else {
+                let mensaje = "";
+                if(serviciosTecnicos === undefined || serviciosTecnicos.length === 0)
+                mensaje = "PASOS DE Servicio tecnico no encontrado";
+                res.json({error: false, data: serviciosTecnicos, mensaje: mensaje})
+            }
+        })
+    }
+}
+//VER TAL PASOS DEL SERVICIO TECNICO
+function listarPasoServicioTecnico(req, res) {
+    if(connection){
+        const { nServicio } = req.params;
+        const { nPaso } = req.params;
+        let sql = `SELECT * FROM pasosDeServicioTecnicos WHERE nServicio = ${connection.escape(nServicio)} AND nPaso = ${connection.escape(nPaso)}`;
+        connection.query(sql, (err, serviciosTecnicos) => {
+            if(err){
+                res.json(error);
+            } else {
+                let mensaje = "";
+                if(serviciosTecnicos === undefined || serviciosTecnicos.length === 0)
+                mensaje = "PASOS DE Servicio tecnico no encontrado";
+                res.json({error: false, data: serviciosTecnicos, mensaje: mensaje})
+            }
+        })
+    }
+}
+//EDITAR PASO SERVICIO TECNICO
+function editarPasoServicioTecnico(req, res){
+    if(connection){
+        const { nServicio } = req.params;
+        const { nPaso } = req.params;
+        const serviciosTecnicos = req.body;
+        let sql = 'UPDATE pasosDeServicioTecnicos set ? where nServicio = ? and nPaso = ?';
+        connection.query(sql, [serviciosTecnicos, nServicio, nPaso], (err, rows) => {
+            if(err){
+                res.json(err)
+            } else {
+                let mensaje = "";
+                if(rows.changedRows === 0){
+                    mensaje = "La información es la misma"
+                } else {
+                    mensaje = "PASO DEL Servicio tecnico editado con exito"
+                }
+                res.json({error: false, data: rows, mensaje: mensaje})
+            }
+        })
+    }
+}
+//ELIMINAR PASO DE SERVICIO TECNICO
+function eliminarPasoServicioTecnico(req, res){
+    if(connection){
+        const { nServicio } = req.params;
+        const { nPaso } = req.params;
+        let sql = 'DELETE FROM pasosDeServicioTecnicos WHERE nServicio = ? and nPaso = ?';
+        connection.query(sql, [nServicio,nPaso], (err, rows) => {
+            if(err){
+                res.json(err)
+            } else {
+                let mensaje = "";
+                if (rows.affectedRows === 0)
+                    mensaje = "Servicio tecnico no encontrado"
+                else 
+                    mensaje= "Servicio tecnico eliminado con exito"
+                res.json({error: false, data: rows, mensaje})
+            }
+        })
+    }
+}
+
+//FIN DE FUNCIONES DE PASOS SERVICIOS TECNICOS    
+
+
+//INICIO DE AVANCES DE INCIDENCIAS
+//AGREGAR AVANCE DE INCIDENCIA
+function nuevoAvanceDeIncidencia(req, res){
+    if(connection){
+        const avanceIncidencia = req.body;
+        if(!avanceIncidencia.nIncidnete){
+            return res.status(400).send({error: true, mensaje: "El numero de incidente es obligatorio"})
+        }
+        if(!avanceIncidencia.diagnosticoInicial){
+            return res.status(400).send({error: true, mensaje: "El diagnostico inicial es obligatorio"})
+        }
+        if(!avanceIncidencia.servicioXRealizar){
+            return res.status(400).send({error: true, mensaje: "El servicio a realizar es obligatorio"})
+        }
+        let sql = 'INSERT INTO avanceIncidencia set ?';
+        connection.query(sql, [avanceIncidencia], (err, rows) => {
+            if(err) {
+                res.json(err)
+            } else {
+                res.json({error: false, data: rows, mensaje: "AVANCE DE INCIDENCIA GUARDADO"})
+            }
+        })
+    }
+}
+
+//VER PASOS DEL AVANCE DE LA INCIDENCIA
+function listarAvancesDeIncidencia(req, res) {
+    if(connection){
+        const { id } = req.params;
+        let sql = `SELECT * FROM avanceIncidencia WHERE nIncidnete = ${connection.escape(id)}`;
+        connection.query(sql, (err, avanceIncidencia) => {
+            if(err){
+                res.json(error);
+            } else {
+                let mensaje = "";
+                if(avanceIncidencia === undefined || avanceIncidencia.length === 0)
+                mensaje = "PASOS DE Servicio tecnico no encontrado";
+                res.json({error: false, data: avanceIncidencia, mensaje: mensaje})
+            }
+        })
+    }
+}
+
+//EDITAR AVANCE DE INCIDENCIA
+function editarAvanceDeIncidencia(req, res){
+    if(connection){
+        const { nIncidnete } = req.params;
+        const avanceIncidencia = req.body;
+        let sql = 'UPDATE avanceIncidencia set ? where nIncidnete = ?';
+        connection.query(sql, [avanceIncidencia, nIncidnete], (err, rows) => {
+            if(err){
+                res.json(err)
+            } else {
+                let mensaje = "";
+                if(rows.changedRows === 0){
+                    mensaje = "La información es la misma"
+                } else {
+                    mensaje = "AVANCE ACTUALIZADO CON EXITO"
+                }
+                res.json({error: false, data: rows, mensaje: mensaje})
+            }
+        })
+    }
+}
+//ELIMINAR AVANCE DE INCIDENCIA
+function eliminarAvanceDeIncidencia(req, res){
+    if(connection){
+        const { nIncidnete } = req.params;
+        let sql = 'DELETE FROM avanceIncidencia WHERE nIncidnete = ?';
+        connection.query(sql, [nIncidnete], (err, rows) => {
+            if(err){
+                res.json(err)
+            } else {
+                let mensaje = "";
+                if (rows.affectedRows === 0)
+                    mensaje = "AVANCE DE INCIDENCIA NO ENCONTRADO"
+                else 
+                    mensaje= "AVANCE DE INCIDENCIA EIMINADO CON EXITO"
+                res.json({error: false, data: rows, mensaje})
+            }
+        })
+    }
+}
+
+//FIN DE FUNCIONES DE PASOS SERVICIOS TECNICOS   
 
 //EXPORTACION DE CONTROLADORES
 
@@ -1933,6 +2547,41 @@ module.exports = {
     obtenerOtroDispositivo,
     editarOtroDispositivo,
     eliminarOtroDispositivo,
+    
+    logIn,
 
-    logIn
+    nuevoUsuario,
+    listaUsuarios,
+    obtenerUsuario,
+    editarUsuario,
+    eliminarUsuario,
+
+    nuevoIncidente,
+    listaIncidentes,
+    obtenerIncidente,
+    editarIncidente,
+    eliminarIncidente,
+
+    nuevaRelacionIncidenteTecncio,
+    listaRelacionesIncidentesTecncios,
+    obtenerRelacionIncidenteTecncio,
+    editarRelacionIncidenteTecncio,
+    eliminarRelacionIncidenteTecncio,
+
+    nuevoServicioTecnico,
+    listaServicioTecnico,
+    obtenerServicioTecnico,
+    editarServicioTecnico,
+    eliminarServicioTecnico,
+
+    nuevoPasoServicioTecnico,
+    listarPasosServicioTecnico,
+    listarPasoServicioTecnico,
+    editarPasoServicioTecnico,
+    eliminarPasoServicioTecnico,
+
+    nuevoAvanceDeIncidencia,
+    listarAvancesDeIncidencia,
+    editarAvanceDeIncidencia,
+    eliminarAvanceDeIncidencia
 }

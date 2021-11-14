@@ -169,31 +169,95 @@ routes.put('/NETDEVICE/:id', Controller.editarDispositivoRed);
 //DELETE
 routes.delete('/NETDEVICE/:id', Controller.eliminarDispositivoRed);
 
-//TECNICO
-//GET
-routes.get('/TECNICO/', Controller.listaTecnicos);
-routes.get('/TECNICO/:id', Controller.obtenerTecnico);
-//POST 
-routes.post('/TECNICO/', Controller.nuevoTecnico);
-//PUT
-routes.put('/TECNICO/:id', Controller.editarTecnico);
-//DELETE
-routes.delete('/TECNICO/:id', Controller.eliminarTecnico);
-
-//LOG IN
-routes.get('/TECNICO/:id', Controller.logIn);
-
-
-
 //OTROS DISPOSITIVOS
 //GET
-routes.get('/TECNICO/', Controller.listaOtrosDispositivos);
-routes.get('/TECNICO/:id', Controller.obtenerOtroDispositivo);
+routes.get('/OD/', Controller.listaOtrosDispositivos);
+routes.get('/OD/:id', Controller.obtenerOtroDispositivo);
 //POST 
-routes.post('/TECNICO/', Controller.nuevoOtroDispositivo);
+routes.post('/OD/', Controller.nuevoOtroDispositivo);
 //PUT
-routes.put('/TECNICO/:id', Controller.editarOtroDispositivo);
+routes.put('/OD/:id', Controller.editarOtroDispositivo);
 //DELETE
-routes.delete('/TECNICO/:id', Controller.eliminarOtroDispositivo);
+routes.delete('/OD/:id', Controller.eliminarOtroDispositivo);
+
+//LOG IN
+//GET
+routes.get('/:id', Controller.logIn);
+
+//USUARIOS
+//GET
+routes.get('/USUARIOS/', Controller.listaUsuarios);
+routes.get('/USUARIOS/:id', Controller.obtenerUsuario);
+//POST 
+routes.post('/USUARIOS/', Controller.nuevoUsuario);
+//PUT
+routes.put('/USUARIOS/:id', Controller.editarUsuario);
+//DELETE
+routes.delete('/USUARIOS/:id', Controller.eliminarUsuario);
+
+//TECNICOS
+//GET
+routes.get('/TECNICOS/', Controller.listaTecnicos);
+routes.get('/TECNICOS/:id', Controller.obtenerTecnico);
+//POST 
+routes.post('/TECNICOS/', Controller.nuevoTecnico);
+//PUT
+routes.put('/TECNICOS/:id', Controller.editarTecnico);
+//DELETE
+routes.delete('/TECNICOS/:id', Controller.eliminarTecnico);
+
+//INCIDENTE
+//GET
+routes.get('/INCIDENTE/', Controller.listaIncidentes);
+routes.get('/INCIDENTE/:id', Controller.obtenerIncidente);
+//POST 
+routes.post('/INCIDENTE/', Controller.nuevoIncidente);
+//PUT
+routes.put('/INCIDENTE/:id', Controller.editarIncidente);
+//DELETE
+routes.delete('/INCIDENTE/:id', Controller.eliminarIncidente);
+
+//INCIDENTETECNCICO
+//GET
+routes.get('/INCIDENTETECNCICO/', Controller.listaRelacionesIncidentesTecncios);
+routes.get('/INCIDENTETECNCICO/:id', Controller.obtenerRelacionIncidenteTecncio);
+//POST 
+routes.post('/INCIDENTETECNCICO/', Controller.nuevaRelacionIncidenteTecncio);
+//PUT
+routes.put('/INCIDENTETECNCICO/:id', Controller.editarRelacionIncidenteTecncio);
+//DELETE
+routes.delete('/INCIDENTETECNCICO/:id', Controller.eliminarRelacionIncidenteTecncio);
+
+//SERVICIOTECNICO
+//GET
+routes.get('/SERVICIOTECNICO/', Controller.listaServicioTecnico);
+routes.get('/SERVICIOTECNICO/:id', Controller.obtenerServicioTecnico);
+//POST 
+routes.post('/SERVICIOTECNICO/', Controller.nuevoServicioTecnico);
+//PUT
+routes.put('/SERVICIOTECNICO/:id', Controller.editarServicioTecnico);
+//DELETE
+routes.delete('/SERVICIOTECNICO/:id', Controller.eliminarServicioTecnico);
+
+//PASOSERVICIOTECNICO
+//GET
+routes.get('/PASOSERVICIOTECNICO/', Controller.listarPasosServicioTecnico);
+routes.get('/PASOSERVICIOTECNICO/:id', Controller.listarPasoServicioTecnico);
+//POST 
+routes.post('/PASOSERVICIOTECNICO/', Controller.nuevoPasoServicioTecnico);
+//PUT
+routes.put('/PASOSERVICIOTECNICO/:id', Controller.editarPasoServicioTecnico);
+//DELETE
+routes.delete('/PASOSERVICIOTECNICO/:id', Controller.eliminarPasoServicioTecnico);
+
+//AVANCEINCIDENTE
+//GET
+routes.get('/AVANCEINCIDENTE/:id', Controller.listarAvancesDeIncidencia);
+//POST 
+routes.post('/AVANCEINCIDENTE/', Controller.nuevoAvanceDeIncidencia);
+//PUT
+routes.put('/AVANCEINCIDENTE/:id', Controller.editarAvanceDeIncidencia);
+//DELETE
+routes.delete('/AVANCEINCIDENTE/:id', Controller.eliminarAvanceDeIncidencia);
 
 module.exports = routes;

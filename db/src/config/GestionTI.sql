@@ -175,6 +175,8 @@ foreign key (edificio) references edificios(idEdificio),
 foreign key (idDocumentacion) references documentacion(idDocumentacion)
 );
 
+/*TODO conecciones de backend*/
+
 /*TODO - VISTAS DE INGRESAR DATOS DE LAS SIGUIENTES TABLAS*/
 
 create table usuarios(
