@@ -2,7 +2,7 @@
 <div class="newOtrosDispositivos">
     <b-container fluid="md">
         <b-row cols="1" id="renglon" align-h="center">
-            <b-col cols="12">
+            <b-col col="12">
                 <Input 
                 label="INGRESE EL ID DEL DISPOSITIVO" 
                 id="idDispositivo"
@@ -13,7 +13,7 @@
             </b-col>
         </b-row>
         <b-row cols="1" id="renglon" align-h="center">
-            <b-col cols="12">
+            <b-col col="12">
                 <Input 
                 label="INGRESE EL NOMBRE DEL DISPOSITIVO" 
                 id="nombre"
@@ -24,19 +24,19 @@
             </b-col>
         </b-row>
         <b-row cols="1" id="renglon" align-h="center">
-            <b-col cols="3">
+            <b-col col="3">
                 <h6>¿CUENTA CON DOCUMENTACION?</h6>
                 <FormSelect :vModel="documentacion" :options="opDocumentacion"/>
             </b-col>
-            <b-col cols="3">
+            <b-col col="3">
                 <h6>¿ESTA REGISTRADA LA DOCUMENTACION?</h6>
                 <FormSelect :vModel="documentacionRegistro" :options="opDocumentacionRegistro"/>
             </b-col>
-            <b-col cols="3">
+            <b-col col="3">
                 <h6>BUSQUE LA DOCUMENTACION</h6>
                 <FormSelect :vModel="idDocumentacion" :options="opidDocumentacion"/>
             </b-col>
-            <b-col cols="3">
+            <b-col col="3">
                 <h6>AGREGE LA DOCUMENTACION</h6>
                 <Button text="NUEVA DOCUMENTACION " icon="bookmark-plus-fill" variant="success" :disabled="documentacionRegistro"/>
             </b-col>
@@ -52,7 +52,7 @@
             </b-col>
         </b-row>
         <b-row cols="1" id="renglon" align-h="center">
-            <b-col cols="6">
+            <b-col col="6">
                 <Input 
                 label="INGRESE EL TIEMPO MINIMO PARA UN MANTENIMIENTO" 
                 id="mantenimientoMinimo"
@@ -60,7 +60,7 @@
                 mensajeerror="EL TIEMPO MINIMO PARA UN MANTENIMIENTO ES OBLIGATORIO"
                 minlength="1"/>
             </b-col>
-            <b-col cols="6">
+            <b-col col="6">
                 <Input 
                 label="INGRESE EL TIEMPO MAXIMO PARA UN MANTENIMIENTO" 
                 id="mantenimientoMaximo"
@@ -70,7 +70,7 @@
             </b-col>
         </b-row>
         <b-row cols="1" id="renglon" align-h="center">
-            <b-col cols="12">
+            <b-col col="12">
                 <b-button variant="success" pill>GUARDAR <b-icon icon="bookmark-plus-fill"></b-icon></b-button>
                 <b-button id="drecha" variant="danger" pill to="/MainPage">CANCELAR <b-icon icon="bookmark-x-fill"/></b-button>
             </b-col>

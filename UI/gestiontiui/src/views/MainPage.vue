@@ -55,10 +55,10 @@
         <b-row>
             <h5>Redes</h5>
             <b-col>
-                <b-button variant="success" pill disabled>Red <b-icon icon="bookmark-plus-fill"></b-icon></b-button>
+                <b-button variant="success" pill to="/red/nuevaRed">Red <b-icon icon="bookmark-plus-fill"></b-icon></b-button>
             </b-col>
             <b-col>
-                <b-button variant="success" pill disabled>Dispositivo de red <b-icon icon="bookmark-plus-fill"></b-icon></b-button>
+                <b-button variant="success" pill to="/red/nuevoDispositivoRed">Dispositivo de red <b-icon icon="bookmark-plus-fill"></b-icon></b-button>
             </b-col>
         </b-row>
         <b-row>
@@ -71,6 +71,30 @@
             <h5>Otros dispositivos</h5>
             <b-col>
                 <b-button variant="success" pill to="/otrosDispositivos/newOtrosDispositivos">Otros dispositivos <b-icon icon="bookmark-plus-fill"></b-icon></b-button>
+            </b-col>
+        </b-row>
+        <b-row>
+            <h5>Usuarios</h5>
+            <b-col>
+                <b-button variant="success" pill to="/users/newUser">USUARIOS <b-icon icon="bookmark-plus-fill"></b-icon></b-button>
+            </b-col>
+        </b-row>
+        <b-row>
+            <h5>Incidentes</h5>
+            <b-col>
+                <b-button variant="success" pill to="/incidents/newIncident">INCIDENTES <b-icon icon="bookmark-plus-fill"></b-icon></b-button>
+            </b-col>
+            <b-col>
+                <b-button variant="warning" pill to="/incidentes/updateIncident">AVANCES DE INCIDENCIAS <b-icon icon="bookmark-plus-fill"></b-icon></b-button>
+            </b-col>
+        </b-row>
+        <b-row>
+            <h5>Servicios tecnicos</h5>
+            <b-col>
+                <b-button variant="success" pill to="/servicios/newServicio">SERVICIOS OFRECIDOS <b-icon icon="bookmark-plus-fill"></b-icon></b-button>
+            </b-col>
+            <b-col>
+                <b-button variant="success" pill to="/servicios/newStepServicio">PASOS DE SERVICIOS OFRECIDOS <b-icon icon="bookmark-plus-fill"></b-icon></b-button>
             </b-col>
         </b-row>
     </b-container>

@@ -175,9 +175,7 @@ foreign key (edificio) references edificios(idEdificio),
 foreign key (idDocumentacion) references documentacion(idDocumentacion)
 );
 
-/*TODO conecciones de backend*/
 
-/*TODO - VISTAS DE INGRESAR DATOS DE LAS SIGUIENTES TABLAS*/
 
 create table usuarios(
 nUsuario varchar(10) primary key,
@@ -251,7 +249,6 @@ create table pasosDeServicioTecnicos(
 nServicio int,
 nPaso int,
 descPaso text,
-tiempoEstimado time,
 foreign key (nServicio) references serviciosTecnicos(nServicio)
 );
 
@@ -263,11 +260,3 @@ hora time,
 servicioXRealizar int,
 foreign key (servicioXRealizar) references serviciosTecnicos(nServicio)
 );
-
-
-/*
-REGISTRO/SOLICITUD DE INCIDENCIA, 
-
-*/
-
-/*CONTROL DE CAMBIOS*/

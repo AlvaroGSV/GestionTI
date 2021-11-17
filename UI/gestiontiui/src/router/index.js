@@ -15,6 +15,13 @@ import AltaComputadora from '../views/compu/AltaComputadora.vue'
 import newTecnico from '../views/tecnicos/newTecnico.vue'
 import newOtrosDispositivos from '../views/otrosDispositivos/newOtrosDispositivos.vue'
 import AltaSoftConfig from '../views/software/AltaSoftConfig.vue'
+import nuevaRed from '../views/red/nuevaRed.vue'
+import nuevoDispositivoRed from '../views/red/nuevoDispositivoRed.vue'
+import newUser from '../views/usuarios/newUser.vue'
+import newIncident from '../views/incidentes/newIncident.vue'
+import updateIncident from '../views/incidentes/updateIncident.vue'
+import newServicio from '../views/servicios/newServicio.vue'
+import newStepServicio from '../views/servicios/newStepServicio.vue'
 import MainPage from '../views/MainPage.vue'
 
 
@@ -95,6 +102,41 @@ const routes = [
     path: '/software/config/AltaSoftConfig',
     name: 'AltaSoftConfig',
     component: AltaSoftConfig
+  },
+  {
+    path: '/red/nuevaRed',
+    name: 'nuevaRed',
+    component: nuevaRed
+  },
+  {
+    path: '/red/nuevoDispositivoRed',
+    name: 'nuevoDispositivoRed',
+    component: nuevoDispositivoRed
+  },
+  {
+    path: '/users/newUser',
+    name: 'newUser',
+    component: newUser
+  },
+  {
+    path:'/incidents/newIncident',
+    name: 'newIncident',
+    component: newIncident
+  },
+  {
+    path: '/incidentes/updateIncident',
+    name: 'updateIncident',
+    component: updateIncident
+  },
+  {
+    path: '/servicios/newStepServicio',
+    name: 'newStepServicio',
+    component: newStepServicio
+  },
+  {
+    path: '/servicios/newServicio',
+    name: 'newServicio',
+    component: newServicio
   },
   {
     path: '/MainPage',

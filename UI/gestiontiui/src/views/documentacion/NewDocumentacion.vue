@@ -2,7 +2,7 @@
 <div class="NewDocumentacion">
     <b-container fluid="md">
         <b-row id="renglon" align-h="center">
-            <b-col cols="8">
+            <b-col col="12">
                 <Input
                 label="FOLIO DE LA DOCUMENTACION"
                 id="nControl"
@@ -12,13 +12,13 @@
             </b-col>
         </b-row>
         <b-row id="renglon" align-h="center">
-            <b-col cols="8">
+            <b-col col="12">
                 <h5>¿Cuenta con el manual?</h5>
                 <b-form-radio-group v-model="manualBool" :options="opManual"></b-form-radio-group>
             </b-col>
         </b-row>
         <b-row id="renglon" align-h="center">
-            <b-col cols="8">
+            <b-col col="12">
                 <Input
                 label="ARCHIVO DEL MANUAL"
                 id="archivoManual"
@@ -27,13 +27,13 @@
             </b-col>
         </b-row>
         <b-row id="renglon" align-h="center">
-            <b-col cols="8">
+            <b-col col="12">
                 <h5>¿Cuenta con la garantia?</h5>
                 <b-form-radio-group v-model="garantiaBool" :options="opGarantia"></b-form-radio-group>
             </b-col>
         </b-row>
         <b-row id="renglon" align-h="center">
-            <b-col cols="8">
+            <b-col col="12">
                 <Input
                 label="ARCHIVO DE LA GARANTIA"
                 id="archivoGarantia"
