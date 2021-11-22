@@ -40,6 +40,9 @@ export default new Vuex.Store({
     },
     altaProductoInventario({commit},{params,onComplete}){
       axios.post('http://localhost:3006/PRODINVENTARIO/', params).then(onComplete).catch(error => {console.logerror})
+    },
+    altaRed({commit},{params,onComplete}){
+      axios.post('http://localhost:3006/NET/', params).then(onComplete).catch(error => {console.logerror})
     }
   },
   getters: {
