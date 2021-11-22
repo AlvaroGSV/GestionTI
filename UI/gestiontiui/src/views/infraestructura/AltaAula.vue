@@ -45,10 +45,7 @@ export default {
         aula:{
           aulaNum:'',
           idEdificio: 'A'
-        },
-        opEdificios: [
-          {value:this.obtenerEdificios().value, text:this.obtenerEdificios().text}
-          ]
+        }
       }
     },
     methods:{

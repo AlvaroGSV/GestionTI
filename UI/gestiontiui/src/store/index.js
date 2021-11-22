@@ -8,11 +8,15 @@ export default new Vuex.Store({
   state: {
     tecnicos:[],
     edificios:[],
-    aulas:[]
+    aulas:[],
+    categorias:[]
   },
   mutations: {
     GetEdificios(state, edificios){
       state.edificios=edificios
+    },
+    GetCategorias(state, categorias){
+      state.categorias=categorias
     }
   },
   actions: {
@@ -30,9 +34,16 @@ export default new Vuex.Store({
     },
     altaCategoria({commit},{params,onComplete}){
       axios.post('http://localhost:3006/CATINVENTARIO/', params).then(onComplete).catch(error => {console.logerror})
+    },
+    obtenerCategorias({commit}){
+      axios.get('http://localhost:3006/CATINVENTARIO/').then(response => {console.log(response); commit('GetCategorias', response.data)})
+    },
+    altaProductoInventario({commit},{params,onComplete}){
+      axios.post('http://localhost:3006/PRODINVENTARIO/', params).then(onComplete).catch(error => {console.logerror})
     }
   },
   getters: {
-    todosLosEdificios: state => {return state.edificios}
+    todosLosEdificios: state => {return state.edificios},
+    todasLasCategorias: state => {return state.categorias}
   }
 })

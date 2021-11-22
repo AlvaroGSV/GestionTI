@@ -48,8 +48,8 @@ foreign key (idSoftware) references software(idSoftware)
 
 /*categorias de inventario*/
 create table categoriaInventario(
-idCategoria int primary key,
-nameCategoria varchar(36)
+value int primary key,
+text varchar(36)
 );
 
 /*lista de inventario*/
@@ -62,7 +62,7 @@ largo double,
 marca varchar(26),
 capacidadMB int,
 tipoPuerto varchar(36),
-foreign key (idCategoria) references categoriaInventario(idCategoria)
+foreign key (idCategoria) references categoriaInventario(value)
 );
 
 /*Lista de hardware de la computadora*/

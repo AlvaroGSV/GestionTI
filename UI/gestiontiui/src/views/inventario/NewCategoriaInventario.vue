@@ -6,9 +6,9 @@
             <b-col col md="8">
                 <Input
                 label="ID DE CATEGORIA"
-                id="idCategoria"
+                id="value"
                 minlength="1"
-                v-model="cat.idCategoria"
+                v-model="cat.value"
                 placeholder= "INGRESE EL ID DE LA CATEGORIA"
                 mensajeError="EL ID DE LA CATEGORIA ES OBLIGATORIO"/>
             </b-col>
@@ -17,10 +17,10 @@
             <b-col col md="8">
                 <Input
                 label="NOMBRE DE LA CATEGORIA"
-                id="nameCategoria"
+                id="text"
                 maxlength="35"
                 minlength="1"
-                v-model="cat.nameCategoria"
+                v-model="cat.text"
                 placeholder= "NOMBRE DE LA CATEGORIA"
                 mensajeError="EL NOMBRE DE LA CATEGORIA ES OBLIGATORIO"/>
             </b-col>
@@ -48,8 +48,8 @@ export default {
     data(){
         return{
             cat:{
-                idCategoria:'',
-                nameCategoria:''
+                value:'',
+                text:''
             }
         }
     },

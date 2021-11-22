@@ -524,10 +524,10 @@ function nuevaCatInventario(req, res){
     if(connection){
         const categoriaInventario = req.body;
 
-        if(!categoriaInventario.idCategoria){
+        if(!categoriaInventario.value){
             return res.status(400).send({error: true, mensaje: "El id de categoria es obligatorio"})
         }
-        if(!categoriaInventario.nameCategoria){
+        if(!categoriaInventario.text){
             return res.status(400).send({error: true, mensaje: "El nombre de categoria es obligatorio"})
         }
         let sql = 'INSERT INTO categoriaInventario set ?';
@@ -558,7 +558,7 @@ function listarCatInventario(req, res) {
 function obtenerCatInventario(req, res) {
     if(connection){
         const { id } = req.params;
-        let sql = `SELECT * FROM categoriaInventario WHERE idCategoria = ${connection.escape(id)}`;
+        let sql = `SELECT * FROM categoriaInventario WHERE value = ${connection.escape(id)}`;
         connection.query(sql, (err, categoriaInventario) => {
             if(err){
                 res.json(error);
@@ -576,7 +576,7 @@ function editarCatInventario(req, res){
     if(connection){
         const { id } = req.params;
         const categoriaInventario = req.body;
-        let sql = 'UPDATE categoriaInventario set ? where idCategoria = ?';
+        let sql = 'UPDATE categoriaInventario set ? where value = ?';
         connection.query(sql, [categoriaInventario, id], (err, rows) => {
             if(err){
                 res.json(err)
@@ -596,7 +596,7 @@ function editarCatInventario(req, res){
 function eliminarCatInventario(req, res){
     if(connection){
         const { id } = req.params;
-        let sql = 'DELETE FROM categoriaInventario WHERE idCategoria = ?';
+        let sql = 'DELETE FROM categoriaInventario WHERE value = ?';
         connection.query(sql, [id], (err, rows) => {
             if(err){
                 res.json(err)
