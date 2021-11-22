@@ -27,6 +27,9 @@ export default new Vuex.Store({
     },
     altaUsuario({commit},{params,onComplete}){
       axios.post('http://localhost:3006/USUARIOS/', params).then(onComplete).catch(error => {console.logerror})
+    },
+    altaCategoria({commit},{params,onComplete}){
+      axios.post('http://localhost:3006/CATINVENTARIO/', params).then(onComplete).catch(error => {console.logerror})
     }
   },
   getters: {
