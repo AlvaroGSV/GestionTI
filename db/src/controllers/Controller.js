@@ -112,7 +112,7 @@ function nuevaAula(req, res){
         }
     
         let sql = 'INSERT INTO aula set ?';
-        connection.query(sql, [edificio], (err, rows) => {
+        connection.query(sql, [aula], (err, rows) => {
             if(err) {
                 res.json(err)
             } else {

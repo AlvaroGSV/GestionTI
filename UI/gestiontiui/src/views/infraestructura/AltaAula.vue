@@ -14,7 +14,7 @@
             </b-col>
             <b-col>
               <h6>EN QUE EDIFICIO SE ENCUENTRA</h6>
-                <b-form-select> v-model="idEdificio" options=opEdificio </b-form-select>
+                <b-form-select v-model="aula.idEdificio" :options=todosLosEdificios> </b-form-select>
                 <strong>{{ idEdificio }}</strong>
             </b-col>
         </b-row>
@@ -55,9 +55,9 @@ export default {
       ...mapActions(['altaAula']),
       ...mapActions(['obtenerEdificios']),
       guardarAula(){
-        console.log(this.edificios)
+        console.log(this.aula)
         this.altaAula({
-          params: this.edificios,
+          params: this.aula,
           onComplete: (response) => {
             console.log(response)
             this.$router.push({name:'infraestructuraMain'})

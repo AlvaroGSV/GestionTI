@@ -79,6 +79,9 @@
 <script>
 import Input from '../../components/Input.vue'
 import FormSelect from '../../components/FormSelect.vue'
+
+import { mapActions } from 'vuex'
+
 export default {
     components: {
         Input,
@@ -95,7 +98,8 @@ export default {
                 {value: 1, text :'CAT 2'}
             ]
         }
-    }
+    },
+    methods:{}
 }
 </script>
 
