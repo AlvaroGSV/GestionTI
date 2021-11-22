@@ -11,9 +11,11 @@
                 minlength="1"/>
             </b-col>
             <b-col col="4">
+                <h6>ESCOGA EN QUE EDIFICIO SE ENCUENTRA EL DISPOSITIVO DEL PROBLEMA</h6>
                 <FormSelect :vModel="idEdificio" :options="opEdificio"/>
             </b-col>
             <b-col col="4">
+                <h6>ESCOGA EN QUE AULA O CUBICULO SE ENCUENTRA EL DISPOSITIVO DEL PROBLEMA</h6>
                 <FormSelect :vModel="aulaNum" :options="opAula"/>
             </b-col>
         </b-row>
@@ -41,12 +43,15 @@
 
         <b-row cols="1" id="renglon" align-h="center">
             <b-col col="4">
+                <h6>SELECCIONE EL ID DE LA COMPUTADORA</h6>
                 <FormSelect :vModel="idCompu" :options="opCompu" :disabled="esCompu"/>
             </b-col>
             <b-col col="4">
+                <h6>SELECCIONE EL ID DEL DISPOSITIVO DE RED</h6>
                 <FormSelect :vModel="deviceID" :options="opDispInternet" :disabled="esCompu"/>
             </b-col>
             <b-col col="4">
+                <h6>SELECCIONE EL ID QUE PARECE EN LA ETIQUETA DEL DISPOSITIVO EN CUESTION</h6>
                 <FormSelect :vModel="idDispositivo" :options="opOtroDispositivo" :disabled="esCompu"/>
             </b-col>
         </b-row>
@@ -54,7 +59,7 @@
         <b-row cols="1" id="renglon" align-h="center">
             <b-col col="12">
                 <b-button variant="success" pill>GUARDAR <b-icon icon="bookmark-plus-fill"></b-icon></b-button>
-                <b-button id="drecha" variant="danger" pill to="/MainPage">CANCELAR <b-icon icon="bookmark-x-fill"/></b-button>
+                <b-button id="drecha" variant="danger" pill to="/normalUser">CANCELAR <b-icon icon="bookmark-x-fill"/></b-button>
             </b-col>
         </b-row>
     </b-container>

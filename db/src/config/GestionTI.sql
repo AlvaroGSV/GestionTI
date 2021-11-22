@@ -3,15 +3,15 @@ use GestionTI;
 
 /*Lista de edificios*/
 create table edificios(
-idEdificio varchar(6) primary key,
-nomEdificio varchar (12)
+value varchar(6) primary key,
+text varchar (12)
 );
 
 /*lista de aulas o cubiculos por edificio*/
 create table aula(
 aulaNum int primary key,
 idEdificio varchar(6),
-foreign key (idEdificio) references edificios(idEdificio)
+foreign key (value) references edificios(value)
 );
 
 /*lista de documentación*/
@@ -129,7 +129,7 @@ softwareEspecializado int
 /*0=NO 1=SI*/,
 idHard int,
 idSoft int,
-foreign key (edificio) references edificios(idEdificio),
+foreign key (edificio) references edificios(value),
 foreign key (idHard) references computerHard(idHard),
 foreign key (idSoft) references computerSoft(idSoft),
 foreign key (aulaNum) references aula(aulaNum)
@@ -155,7 +155,7 @@ exposure int
 edificio varchar(6),
 aulaNum int,
 foreign key (idNetwork) references Network(idNetwork),
-foreign key (edificio) references edificios(idEdificio),
+foreign key (edificio) references edificios(value),
 foreign key (aulaNum) references aula(aulaNum)
 );
 
@@ -171,7 +171,7 @@ ultimoMantenimiento date,
 edificio varchar(6),
 aulaNum int,
 foreign key (aulaNum) references aula(aulaNum),
-foreign key (edificio) references edificios(idEdificio),
+foreign key (edificio) references edificios(value),
 foreign key (idDocumentacion) references documentacion(idDocumentacion)
 );
 
@@ -212,13 +212,15 @@ create table incidentes(
 nIncidnete int primary key,
 idEdificio varchar(6),
 aulaNum int,
+nUsuarioAlta varchar(10),
+nUsuarioTecnico varchar(10),
 esCompu int, /*0=NO 1=SI*/
 esDispositivoRed int, /*0=NO 1=SI*/
 esOtroDispositivo int, /*0=NO 1=SI*/
 idCompu int, /*en caso de que sea una computadora*/
 deviceID int, /*en caso de que sea un dispositivo de red*/
 idDispositivo varchar(12), /*en caso de que sea otro dispositivo*/
-foreign key (idEdificio) references edificios(idEdificio),
+foreign key (idEdificio) references edificios(value),
 foreign key (aulaNum) references aula(aulaNum),
 foreign key (idCompu) references computer(idCompu),
 foreign key (deviceID) references NetworkDevices(deviceID),

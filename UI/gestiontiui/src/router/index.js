@@ -22,7 +22,11 @@ import newIncident from '../views/incidentes/newIncident.vue'
 import updateIncident from '../views/incidentes/updateIncident.vue'
 import newServicio from '../views/servicios/newServicio.vue'
 import newStepServicio from '../views/servicios/newStepServicio.vue'
+import infraestructuraMain from '../views/infraestructura/infraestructuraMain.vue'
 import MainPage from '../views/MainPage.vue'
+import normalUser from '../views/normalUser.vue'
+import tecnicUser from '../views/tecnicUser.vue'
+import adminUser from '../views/adminUser.vue'
 
 
 Vue.use(VueRouter)
@@ -142,6 +146,26 @@ const routes = [
     path: '/MainPage',
     name: 'MainPage',
     component: MainPage
+  },
+  {
+    path: '/normalUser',
+    name: 'normalUser',
+    component: normalUser
+  },
+  {
+    path: '/tecnicUser',
+    name: 'tecnicUser',
+    component: tecnicUser
+  },
+  {
+    path: '/adminUser',
+    name: 'adminUser',
+    component: adminUser
+  },
+  {
+    path: '/infraestructuraMain',
+    name: 'infraestructuraMain',
+    component: infraestructuraMain
   }
 ]
 

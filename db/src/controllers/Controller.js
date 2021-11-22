@@ -7,7 +7,7 @@ function nuevoEdificio(req, res){
     if(connection){
         const edificio = req.body;
 
-        if(!edificio.idEdificio){
+        if(!edificio.value){
             return res.status(400).send({error: true, mensaje: "El ID es obligatorio"})
         }
     
@@ -29,8 +29,8 @@ function listarEdificos(req, res) {
             if(err){
                 res.send(err)
             } else {
-                console.log(edificios);
-                res.json(edificios);
+                console.log(edificio);
+                res.json(edificio);
             }
         })
     }
@@ -1701,12 +1701,12 @@ function logIn(req, res) {
         
         connection.query(sql, [id, pass], (err) => {
             if(err){
-                res.json(error);
+                res.json(err);
             } else {
                 let mensaje = "";
                 if(otrosDispositivos === undefined || otrosDispositivos.length === 0)
                 mensaje = "Otro Dispositivo no encontrado";
-                res.json({error: false, data: otrosDispositivos, mensaje: mensaje})
+                res.json({err: false, data: otrosDispositivos, mensaje: mensaje})
             }
         })
     }

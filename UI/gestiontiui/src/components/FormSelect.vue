@@ -1,6 +1,6 @@
 <template>
 <div>
-    <b-form-select v-model="vModel" :options="options" :disabled="disabled"/>
+    <b-form-select v-model="vModel" :options="options" :disabled="disabled"></b-form-select>
 </div>
 </template>
 
