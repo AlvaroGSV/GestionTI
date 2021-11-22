@@ -182,7 +182,7 @@ routes.delete('/OD/:id', Controller.eliminarOtroDispositivo);
 
 //LOG IN
 //GET
-routes.get('/:id', Controller.logIn);
+routes.get('/logIn/:id', Controller.logIn);
 
 //USUARIOS
 //GET

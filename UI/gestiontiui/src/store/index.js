@@ -24,6 +24,9 @@ export default new Vuex.Store({
     },
     altaAula({commit},{params,onComplete}){
       axios.post('http://localhost:3006/AULA/', params).then(onComplete).catch(error => {console.logerror})
+    },
+    altaUsuario({commit},{params,onComplete}){
+      axios.post('http://localhost:3006/USUARIOS/', params).then(onComplete).catch(error => {console.logerror})
     }
   },
   getters: {

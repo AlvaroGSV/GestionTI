@@ -1,6 +1,6 @@
 <template>
 <div>
-    <b-form-select v-model="vModel" :options="options" :disabled="disabled"></b-form-select>
+    <b-form-select  :options="options" :disabled="disabled"></b-form-select>
 </div>
 </template>
 
@@ -11,10 +11,6 @@ export default {
         options: {
             type: Array,
             default:[]
-        },
-        vModel:{
-            type: String,
-            default:''
         },
         disabled:{
             type: Boolean,
